@@ -391,14 +391,14 @@ export function Showroom(): React.ReactElement {
 
         {/* Nav arrows */}
         <button
-          className="absolute top-1/2 -translate-y-1/2 left-[clamp(12px,2vw,32px)] w-11 h-11 rounded-full flex items-center justify-center bg-brand-brown-near-black/30 border border-brand-cream/20 backdrop-blur-md text-brand-cream cursor-pointer transition-all duration-300 opacity-75 hover:opacity-100 hover:bg-brand-brown-near-black/50 hover:-translate-x-0.5 z-30 max-sm:top-auto max-sm:bottom-[72px] max-sm:transform-none max-sm:w-9 max-sm:h-9"
+          className="absolute top-1/2 -translate-y-1/2 left-[clamp(12px,2vw,32px)] w-11 h-11 rounded-full flex items-center justify-center bg-brand-brown-near-black/30 border border-brand-cream/20 backdrop-blur-md text-brand-cream cursor-pointer transition-all duration-300 opacity-75 hover:opacity-100 hover:bg-brand-brown-near-black/50 hover:-translate-x-0.5 z-30 max-sm:top-auto max-sm:bottom-[340px] max-sm:transform-none max-sm:w-9 max-sm:h-9"
           onClick={() => go(-1)}
           aria-label="Previous category"
         >
           <svg viewBox="0 0 24 24" className="w-5 h-5 fill-none stroke-brand-cream stroke-[1.3] drop-shadow-sm"><path d="M15 3 6 12l9 9" /></svg>
         </button>
         <button
-          className="absolute top-1/2 -translate-y-1/2 right-[clamp(12px,2vw,32px)] w-11 h-11 rounded-full flex items-center justify-center bg-brand-brown-near-black/30 border border-brand-cream/20 backdrop-blur-md text-brand-cream cursor-pointer transition-all duration-300 opacity-75 hover:opacity-100 hover:bg-brand-brown-near-black/50 hover:translate-x-0.5 z-30 max-sm:top-auto max-sm:bottom-[72px] max-sm:transform-none max-sm:w-9 max-sm:h-9"
+          className="absolute top-1/2 -translate-y-1/2 right-[clamp(12px,2vw,32px)] w-11 h-11 rounded-full flex items-center justify-center bg-brand-brown-near-black/30 border border-brand-cream/20 backdrop-blur-md text-brand-cream cursor-pointer transition-all duration-300 opacity-75 hover:opacity-100 hover:bg-brand-brown-near-black/50 hover:translate-x-0.5 z-30 max-sm:top-auto max-sm:bottom-[340px] max-sm:transform-none max-sm:w-9 max-sm:h-9"
           onClick={() => go(1)}
           aria-label="Next category"
         >
