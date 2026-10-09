@@ -125,7 +125,7 @@ export const ContactSection: React.FC = () => {
                   <Mail className="w-4 h-4 text-brand-terracotta mt-1 shrink-0" />
                   <div>
                     <div className="font-display font-bold text-sm text-brand-cream">Direct Email</div>
-                    <div className="text-xs text-brand-cream/60 mt-0.5">Soul Space@ssbagscollection.com</div>
+                    <div className="text-xs text-brand-cream/60 mt-0.5">SoulSpace@ssbagscollection.com</div>
                   </div>
                 </div>
               </div>
@@ -214,10 +214,10 @@ export const ContactSection: React.FC = () => {
                         onChange={(e) => setFormData({ ...formData, inquiryType: e.target.value })}
                         className="w-full bg-brand-brown-dark border border-brand-cream/20 rounded p-3 text-xs text-brand-cream focus:border-brand-terracotta focus:outline-none"
                       >
-                        <option value="Bespoke Bag Commission">Bespoke Bag Commission</option>
+                        <option value="Bespoke Bag Commission">Custom Order</option>
                         <option value="Purchase Existing Design">Purchase Existing Design</option>
                         <option value="Custom Size / Modification">Custom Size / Modification</option>
-                        <option value="Press & Collaborative Inquiries">Press & Editorial</option>
+                        <option value="Press & Collaborative Inquiries">Fashion Styling</option>
                       </select>
                     </div>
                   </div>
