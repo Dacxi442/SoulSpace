@@ -1,0 +1,421 @@
+/* ══════════════════════════════════════════════════════════════════
+   CSS Custom Properties
+═══════════════════════════════════════════════════════════════════ */
+:root {
+  --ease: cubic-bezier(.65, 0, .35, 1);
+  --soft: cubic-bezier(.22, .8, .24, 1);
+  --snappy: cubic-bezier(.4, 0, .2, 1);
+  --silk: cubic-bezier(.25, .46, .45, .94);
+  --mx: 0;
+  --my: 0;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: .7;
+  }
+
+  80% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Cinematic Layout
+═══════════════════════════════════════════════════════════════════ */
+.showroom-container {
+  height: 110vh;
+  width: 100%;
+}
+
+.showroom-cinema {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-brand-brown-near-black, #0E0907);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Cinematic Header Overlay
+═══════════════════════════════════════════════════════════════════ */
+.showroom-header-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 40;
+  display: flex;
+  justify-content: center;
+  padding-top: clamp(2rem, 5vh, 4rem);
+  /* Reduced padding to place it closer to the top */
+  pointer-events: none;
+  /* Let clicks pass through except on interactive elements */
+}
+
+.showroom-header-content {
+  text-align: center;
+  pointer-events: auto;
+  /* Enable clicks on the auto-play button */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.showroom-header-accent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  opacity: 0.85;
+}
+
+.showroom-header-line {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212, 163, 89, 0.6), transparent);
+}
+
+/* ── Crossfade background layers ── */
+.showroom-bg-stack {
+  position: absolute;
+  inset: -4%;
+  z-index: 0;
+}
+
+.showroom-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-position: center;
+  background-size: cover;
+  opacity: 0;
+  transition: opacity 2s var(--silk);
+  transform: translate3d(calc(var(--mx) * -7px), calc(var(--my) * -4px), 0) scale(1.05);
+  will-change: opacity, transform;
+}
+
+.showroom-bg-layer.active {
+  opacity: 1;
+}
+
+/* ── Cinematic vignette — strong dark frame ── */
+.showroom-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 85% at 50% 50%, transparent 28%, rgba(0, 0, 0, .68) 100%),
+    linear-gradient(to top, rgba(0, 0, 0, .72) 0%, transparent 36%),
+    linear-gradient(to bottom, rgba(0, 0, 0, .50) 0%, transparent 24%),
+    linear-gradient(to right, rgba(0, 0, 0, .38) 0%, transparent 16%),
+    linear-gradient(to left, rgba(0, 0, 0, .38) 0%, transparent 16%);
+}
+
+.showroom-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(rgba(110, 80, 45, .06), rgba(110, 80, 45, .06));
+}
+
+/* ── Floor perspective grid ── */
+.showroom-floor {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 28%;
+  overflow: hidden;
+  z-index: 2;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .6) 60%);
+  mask-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, .6) 60%);
+}
+
+.showroom-floor svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Stage & Products
+═══════════════════════════════════════════════════════════════════ */
+.showroom-stage {
+  position: absolute;
+  inset: 0;
+  perspective: 1800px;
+  z-index: 3;
+}
+
+.showroom-pl {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(calc(var(--mx) * 14px), calc(var(--my) * 8px), 0);
+}
+
+/* Each product slot — SMOOTHER transitions */
+.showroom-p {
+  position: absolute;
+  top: 54%;
+  width: clamp(220px, 35vw, 480px);
+  height: clamp(260px, 65%, 600px);
+  transition:
+    transform 1.4s var(--soft),
+    opacity 1.2s var(--silk),
+    filter 1.2s var(--silk),
+    left 1.4s var(--soft);
+  will-change: transform, opacity, left, filter;
+}
+
+.showroom-p[data-pos="c"] {
+  left: 28%;
+  transform: translate(-50%, -52%);
+  opacity: 1;
+  filter: none;
+}
+
+.showroom-p[data-pos="l"] {
+  left: -20%;
+  transform: translate(-50%, -52%) scale(.78) rotateY(14deg);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.showroom-p[data-pos="r"] {
+  left: 120%;
+  transform: translate(-50%, -52%) scale(.78) rotateY(-14deg);
+  opacity: 0;
+  filter: blur(10px);
+  pointer-events: none;
+}
+
+.showroom-p[data-pos="hidden"] {
+  transform: translate(-50%, -52%) scale(.7);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ── Glass card wrapping the image ── */
+.showroom-glass-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(3px) saturate(1.1);
+  -webkit-backdrop-filter: blur(3px) saturate(1.1);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, .04) inset,
+    0 24px 48px -12px rgba(0, 0, 0, .55),
+    0 4px 12px -4px rgba(0, 0, 0, .35);
+  overflow: hidden;
+  animation: float 7s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+  from {
+    transform: translateY(-6px) rotateZ(-.25deg);
+  }
+
+  to {
+    transform: translateY(6px) rotateZ(.25deg);
+  }
+}
+
+.showroom-card-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+}
+
+.showroom-card-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(0 18px 16px rgba(0, 0, 0, .45)) drop-shadow(0 4px 6px rgba(0, 0, 0, .3));
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
+/* ── Hotspot anchor dot (small glowing point on image) ── */
+.showroom-hs-dot {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  margin: -5px 0 0 -5px;
+  border-radius: 50%;
+  background: var(--color-brand-gold, #D4A359);
+  border: 1.5px solid rgba(255, 255, 255, .9);
+  box-shadow:
+    0 0 0 4px rgba(212, 163, 89, .22),
+    0 0 12px 4px rgba(212, 163, 89, .4),
+    0 0 0 0 rgba(212, 163, 89, .4);
+  animation: dot-pulse 2.2s ease-in-out infinite;
+  z-index: 2;
+}
+
+@keyframes dot-pulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 0 3px rgba(212, 163, 89, .18), 0 0 10px 3px rgba(212, 163, 89, .3);
+  }
+
+  50% {
+    box-shadow: 0 0 0 6px rgba(212, 163, 89, .06), 0 0 18px 6px rgba(212, 163, 89, .18);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Connector Line — glowing bezier curve
+═══════════════════════════════════════════════════════════════════ */
+.showroom-line {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+  overflow: visible;
+  opacity: 0;
+  transition: opacity 0.4s var(--ease);
+}
+
+.showroom-line path {
+  fill: none;
+  stroke: url(#lineGrad);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: var(--len, 800);
+  stroke-dashoffset: var(--len, 800);
+  transition: stroke-dashoffset 1.1s var(--ease);
+  filter: url(#glow);
+}
+
+.showroom-line.on {
+  opacity: 1;
+  transition: opacity 0s;
+}
+
+.showroom-line.on path {
+  stroke-dashoffset: 0;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Glass material (shared utility)
+═══════════════════════════════════════════════════════════════════ */
+.showroom-glass {
+  background: rgba(14, 9, 7, 0.55);
+  border: 1px solid rgba(212, 163, 89, 0.3);
+  backdrop-filter: blur(28px) saturate(1.4);
+  -webkit-backdrop-filter: blur(28px) saturate(1.4);
+  box-shadow:
+    0 0 40px rgba(61, 26, 57, 0.4),
+    0 0 20px rgba(212, 163, 89, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Gateway Info Card — category CTA
+═══════════════════════════════════════════════════════════════════ */
+.showroom-gateway {
+  position: absolute;
+  left: 55%;
+  top: 54%;
+  width: clamp(260px, 30vw, 420px);
+  border-radius: 16px;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(calc(-50% + 12px)) scale(.96);
+  pointer-events: none;
+  transition: opacity .8s var(--ease), transform 1s var(--soft);
+  z-index: 5;
+}
+
+.showroom-gateway.on {
+  opacity: 1;
+  transform: translateY(-50%) scale(1);
+  pointer-events: auto;
+  transition-delay: .18s;
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Responsive — tablets  ≤ 900px
+═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .showroom-p {
+    width: clamp(200px, 42vw, 360px);
+    height: clamp(240px, 60%, 480px);
+  }
+
+  .showroom-p[data-pos="c"] {
+    left: 30%;
+  }
+
+  .showroom-gateway {
+    left: 58%;
+    width: clamp(220px, 35vw, 320px);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Responsive — phones  ≤ 700px
+═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 700px) {
+  .showroom-p {
+    width: clamp(160px, 60vw, 260px);
+    height: clamp(180px, 45%, 320px);
+  }
+
+  /* Lift the image card upward so it doesn't touch the info card */
+  .showroom-p[data-pos="c"] {
+    left: 50%;
+    top: 36%;
+  }
+
+  /* On phones, gateway card goes bottom of screen */
+  .showroom-gateway {
+    left: 14px !important;
+    right: 14px !important;
+    width: auto !important;
+    top: auto !important;
+    bottom: 54px !important;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  .showroom-gateway.on {
+    transform: translateY(0) scale(1);
+  }
+
+  /* Hide connector line on mobile */
+  .showroom-line {
+    display: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Reduced motion
+═══════════════════════════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .showroom-container * {
+    animation: none !important;
+    transition-duration: .01s !important;
+    transition-delay: 0s !important;
+  }
+}

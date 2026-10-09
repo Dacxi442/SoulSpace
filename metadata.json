@@ -1,0 +1,8 @@
+{
+  "name": "Soul Space Creations",
+  "description": "Bags and Thrifting Shop and bespoke accessories. Handcrafted with traditional artisan techniques, contemporary luxury silhouettes, and African geometric identity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

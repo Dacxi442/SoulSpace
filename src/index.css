@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: 'Syne';
+  --font-serif: 'Cormorant Garamond';
+  --font-sans: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Space Mono', monospace;
+
+  --color-brand-brown-dark: #160F0C;
+  --color-brand-brown: #241712;
+  --color-brand-brown-light: #3A261E;
+  --color-brand-black: #0D0806;
+  --color-brand-cream: #FAF7F2;
+  --color-brand-cream-muted: #F3ECE1;
+  --color-brand-purple: #3D1A39;
+  --color-brand-purple-deep: #240E23;
+  --color-brand-brown-ink: #251712;
+  --color-brand-brown-text: #160E0B;
+  --color-brand-brown-near-black: #0E0907;
+  --color-brand-ochre: #9E4E24;
+  --color-brand-terracotta: #D95A2B;
+  --color-brand-terracotta-vivid: #E86D3C;
+  --color-brand-terracotta-deep: #C24E24;
+  --color-brand-gold: #D4A359;
+  --color-brand-gold-light: #E8C967;
+  --color-brand-gold-warm: #C58F3B;
+  --color-brand-whatsapp: #25D366;
+  --color-brand-whatsapp-hover: #1EBC59;
+}
+
+.hero-perspective-stage {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-perspective-stage {
+    perspective: none !important;
+  }
+}
