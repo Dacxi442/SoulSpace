@@ -17,7 +17,7 @@ import CommunityPage from './pages/AboutusPage';
 import CollectionPage from './pages/CollectionPage';
 import ShowroomPage from './pages/showroomPage';
 import Categoriespage from './pages/categories';
-import StoryPage from './pages/StoryPage';
+// import StoryPage from './pages/StoryPage';
 import OrderPage from './pages/OrderPage';
 
 import { MessageCircle } from 'lucide-react';
@@ -87,7 +87,7 @@ function AppContent() {
           <Route path="/collection" element={<CollectionPage />} />
           <Route path="/showroom" element={<ShowroomPage />} />
           <Route path="/categories" element={<Categoriespage />} />
-          <Route path="/story" element={<StoryPage />} />
+          {/* <Route path="/story" element={<StoryPage />} /> */}
           <Route path="/order" element={<OrderPage />} />
         </Routes>
       </main>
