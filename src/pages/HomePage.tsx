@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { FeaturedCollection } from '../components/FeaturedCollection';
 import { Showroom } from '../components/Showroom';
 // import { TheCraft } from '../components/TheCraft';
-import { AboutUS } from '../components/AboutUs';
+import { AboutUS } from '../components/Aboutus';
 import { ContactSection } from '../components/ContactSection';
 
 export default function HomePage() {

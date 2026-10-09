@@ -1,5 +1,5 @@
 import React from 'react';
-import { AboutUS } from '../components/AboutUs';
+import { AboutUS } from '../components/Aboutus';
 import { AnimatedSection } from '../components/AnimatedSection';
 
 export default function CommunityPage() {
