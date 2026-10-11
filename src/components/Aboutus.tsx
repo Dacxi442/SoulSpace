@@ -122,7 +122,7 @@ export const AboutUS: React.FC = () => {
         </div>
 
         {/* ── Highlights / Stats Strip ── */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-brand-brown-ink/10">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8 border-t border-brand-brown-ink/10">
           {ABOUT_US_DATA.highlights.map((item, index) => {
             const Icon = HIGHLIGHT_ICONS[index % HIGHLIGHT_ICONS.length];
             return (
@@ -147,7 +147,7 @@ export const AboutUS: React.FC = () => {
               </div>
             );
           })}
-        </div>
+        </div> */}
       </div>
     </section>
   );

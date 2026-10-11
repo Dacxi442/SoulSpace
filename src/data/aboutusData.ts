@@ -20,26 +20,7 @@ export const ABOUT_US_DATA = {
     "Hello Soul Space Creations, I'd love to support or learn more about your community work",
   joinWorkshopMessage:
     "Hello Soul Space Creations, I'm interested in your bag-making workshops",
-  highlights: [
-    {
-      stat: '30+',
-      label: 'Students Trained',
-      description:
-        'Young people taught the art of bag-making and leatherwork — giving them a skill and a future.',
-    },
-    {
-      stat: '1',
-      label: 'Flagship Project',
-      description:
-        "Our signature workshop at a local students' home, where we taught children to cut, stitch, and design their own bags from scratch.",
-    },
-    {
-      stat: '∞',
-      label: 'Lives Touched',
-      description:
-        'Every stitch teaches patience, every finished bag builds confidence. We are committed to empowering through craft.',
-    },
-  ],
+
   images: {
     hero: heroImg,
     workshop1: workshopImg1,

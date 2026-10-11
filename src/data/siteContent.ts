@@ -5,7 +5,6 @@ export const SITE_CONTENT = {
     shortName: "S & S",
   },
   hero: {
-    badge: "Soul Space Creations · Limited Edition",
     title: "SOUL SPACE CREATIONS",
     subtitles: ["BAGS & THRIFTS", "HANDMADE DESIGNS", "CLOTHING & ACCESSORIES"],
     tagline: "Hand-stitched. Designed around you.",

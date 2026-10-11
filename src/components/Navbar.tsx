@@ -115,7 +115,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
               className="group text-left flex items-center gap-3 focus:outline-none"
               aria-label={`${SITE_CONTENT.brand.name} Home`}
             >
-              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-sm bg-brand-cream-muted/70 flex items-center justify-center border border-brand-terracotta/40 group-hover:border-brand-terracotta transition-colors overflow-hidden shrink-0">
+              <div className="w-12 h-12 sm:w-12 sm:h-12 rounded-sm bg-brand-cream-muted/70 flex items-center justify-center border border-brand-terracotta/40 group-hover:border-brand-terracotta transition-colors overflow-hidden shrink-0">
                 <img
                   src="../src/assets/logo.jpeg"
                   alt="Soul Space Logo"
@@ -133,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                 </span>
               </div>
 
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <span className="font-display font-bold text-sm sm:text-base tracking-widest text-brand-brown-dark uppercase leading-none">
                   {SITE_CONTENT.brand.name}
                 </span>
@@ -141,7 +141,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                 <span className="font-serif italic text-[11px] sm:text-xs tracking-wider text-brand-terracotta font-semibold mt-1">
                   {SITE_CONTENT.brand.subtitle}
                 </span>
-              </div>
+              </div> */}
             </Link>
 
             {/* Desktop Navigation */}

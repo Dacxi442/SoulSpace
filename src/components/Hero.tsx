@@ -235,12 +235,12 @@ export const Hero: React.FC<HeroProps> = ({
 
       {/* Subtle Top-Right Video File Loader (allows instant local video file swap if desired) */}
       <div className="relative z-30 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-        <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-sm bg-brand-brown-near-black/65 backdrop-blur-md border border-brand-gold/35 text-brand-cream shadow-md">
+        {/* <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-sm bg-brand-brown-near-black/65 backdrop-blur-md border border-brand-gold/35 text-brand-cream shadow-md">
           <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" aria-hidden="true" />
           <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase text-brand-cream font-medium">
             {SITE_CONTENT.hero.badge}
           </span>
-        </div>
+        </div> */}
 
         {/* <div>
           <input
@@ -362,7 +362,7 @@ export const Hero: React.FC<HeroProps> = ({
               <ArrowRight className="w-5 h-5 text-brand-brown-near-black group-hover:translate-x-1 transition-transform duration-200" />
             </button>
 
-            {/* Secondary CTA: View Gallery */}
+            {/* Secondary CTA: View Gallery
             <button
               id="btn-hero-gallery"
               type="button"
@@ -371,7 +371,7 @@ export const Hero: React.FC<HeroProps> = ({
             >
               <Compass className="w-5 h-5 text-brand-gold group-hover:rotate-12 transition-transform duration-200" />
               <span>{SITE_CONTENT.hero.secondaryCta}</span>
-            </button>
+            </button> */}
           </div>
 
         </div>
