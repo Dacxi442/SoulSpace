@@ -117,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             >
               <div className="w-12 h-12 sm:w-12 sm:h-12 rounded-sm bg-brand-cream-muted/70 flex items-center justify-center border border-brand-terracotta/40 group-hover:border-brand-terracotta transition-colors overflow-hidden shrink-0">
                 <img
-                  src="../src/assets/logo.jpeg"
+                  src="/logo.jpeg"
                   alt="Soul Space Logo"
                   className="w-full h-full object-contain"
                 // onError={(e) => {
