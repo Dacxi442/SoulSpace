@@ -28,3 +28,47 @@ export interface CustomBespokeOrder {
   customerName?: string;
   customerContact?: string;
 }
+
+export interface ShowroomCategory {
+  id: string;
+  label: string;
+  tagline: string;
+  img: string;
+  bg: string;
+  hotspotX: number;
+  hotspotY: number;
+  href: string;
+}
+
+export interface AboutHighlight {
+  stat: string;
+  label: string;
+  description: string;
+}
+
+export interface AboutUsContent {
+  sectionTag: string;
+  title: string;
+  summary: string;
+  storyBadge: string;
+  highlights: AboutHighlight[];
+  images: {
+    hero: string;
+    workshop1: string;
+    workshop2: string;
+    workshop3: string;
+  };
+}
+
+export interface NavLinkItem {
+  label: string;
+  path: string;
+}
+
+export interface CategoryCard {
+  id: CategoryFilter;
+  title: string;
+  description: string;
+  image: string;
+  tag: string;
+}

@@ -11,18 +11,27 @@ import clutchDetail from '../assets/bags/bag1 (2).jpeg';
 import artisanCraft from '../assets/images/ss_craft_artisan_1790067482692.jpg';
 import backpackBag from '../assets/bags/bag1 (19).jpeg';
 
-import { Product } from '../types';
+import { Product, CategoryFilter, CategoryCard } from '../types';
 
 export const CRAFT_IMAGE = artisanCraft;
 export const HERO_IMAGE = heroTote;
 export const BACKPACK_IMAGE = backpackBag;
+
+export const CATEGORIES_LIST: CategoryFilter[] = [
+  'All',
+  "Women's Bags",
+  "Men's Bags",
+  'Custom Bags',
+  'New Designs',
+  'Fashion / Accessories',
+];
 
 export const PRODUCTS: Product[] = [
   {
     id: 'ss-tote-solstice',
     name: 'Solstice Grand Tote',
     subtitle: 'Signature Hand-Stitched Leather & Geometric Textile',
-    category: 'Women\'s Bags',
+    category: "Women's Bags",
     price: '$385',
     image: heroTote,
     secondaryImage: burgundyTote,
@@ -43,7 +52,7 @@ export const PRODUCTS: Product[] = [
     id: 'ss-crossbody-zaria',
     name: 'Zaria Arch Crossbody',
     subtitle: 'Sculptural Saddle Bag with African Flap Motif',
-    category: 'Women\'s Bags',
+    category: "Women's Bags",
     price: '$290',
     image: crossbodyBag,
     secondaryImage: crossbodyAlternate,
@@ -64,7 +73,7 @@ export const PRODUCTS: Product[] = [
     id: 'ss-duffle-kilim',
     name: 'Sahara Nomad Weekender',
     subtitle: 'Heavyweight Artisan Travel Bag',
-    category: 'Men\'s Bags',
+    category: "Men's Bags",
     price: '$460',
     image: duffleBag,
     secondaryImage: shopperBag,
@@ -80,8 +89,88 @@ export const PRODUCTS: Product[] = [
     isFeatured: true,
     isNew: true,
     colorways: ['Espresso & Ochre', 'Dark Chestnut', 'Ebony Black']
+  },
+  {
+    id: 'ss-backpack-ashanti',
+    name: 'Ashanti Sculpted Rucksack',
+    subtitle: 'Hand-Cut Terracotta Leather & African Tribal Inlay',
+    category: 'New Designs',
+    price: '$410',
+    image: backpackBag,
+    secondaryImage: heroTote,
+    description:
+      'An architectural everyday luxury backpack crafted from vegetable-tanned terracotta leather with an authentic geometric woven African tribal inlay.',
+    craftDetails: [
+      'Sculptural curved flap',
+      'Solid brass buckle clasp',
+      'Adjustable reinforced shoulder straps',
+      'Dedicated interior protective compartment'
+    ],
+    dimensions: '39cm x 29cm x 13cm',
+    materials:
+      'Burnished Terracotta Leather, African Geometric Weave, Solid Antiqued Brass Clasp',
+    isFeatured: true,
+    isNew: true,
+    colorways: ['Terracotta & Ochre', 'Espresso Dark']
+  },
+  {
+    id: 'ss-clutch-sovereign',
+    name: 'Sovereign Evening Clutch',
+    subtitle: 'Architectural Envelope Silhouette with Brass Accents',
+    category: 'Fashion / Accessories',
+    price: '$210',
+    image: clutchBag,
+    secondaryImage: clutchDetail,
+    description: 'An elegant hand-held clutch structured in smooth calfskin and finished with precision hand-sewn geometric borders. Perfect for formal evenings or elevated daywear.',
+    craftDetails: [
+      'Hand-cut envelope flap with magnetic clasp',
+      'Detachable antique brass shoulder chain',
+      'Soft suede-lined interior with card slots'
+    ],
+    dimensions: '16cm (H) x 28cm (W) x 5cm (D)',
+    materials: 'Full-Grain Calfskin, African Weave Trim, Solid Brass Hardware',
+    isFeatured: false,
+    isNew: true,
+    colorways: ['Deep Espresso', 'Terracotta Glow']
   }
+];
 
+export const CATEGORY_CARDS: CategoryCard[] = [
+  {
+    id: "Women's Bags",
+    title: "Women's Bags",
+    description: 'Structured totes, sculptural crossbodies, and statement shoulder bags.',
+    image: heroTote,
+    tag: 'Hand-burnished leather'
+  },
+  {
+    id: "Men's Bags",
+    title: "Men's Bags",
+    description: 'Heavyweight weekenders, architectural briefcases, and travel messengers.',
+    image: duffleBag,
+    tag: 'Heavy-gauge saddle stitch'
+  },
+  {
+    id: 'Custom Bags',
+    title: 'Custom Bags',
+    description: '1-of-1 bespoke pieces tailored to your exact measurements & textile preferences.',
+    image: crossbodyBag,
+    tag: 'Your Idea. Our Craft.'
+  },
+  {
+    id: 'New Designs',
+    title: 'New Designs',
+    description: 'Our latest seasonal silhouettes fusing contemporary runway cuts with ancestral motifs.',
+    image: backpackBag,
+    tag: 'Soul Space Fresh'
+  },
+  {
+    id: 'Fashion / Accessories',
+    title: 'Fashion / Accessories',
+    description: 'Envelope evening clutches, leather pouches, belts, and artisan accents.',
+    image: clutchBag,
+    tag: 'Solid brass & leather'
+  }
 ];
 
 export const CRAFT_STEPS = [

@@ -12,6 +12,7 @@ import {
 } from './AfricanPatterns';
 import { Link, useLocation } from 'react-router-dom';
 import { SITE_CONTENT } from '../data/siteContent';
+import { NAV_LINKS } from '../data/navigationData';
 
 interface NavbarProps {
   onNavigate: (sectionId: string) => void;
@@ -77,13 +78,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  const navLinks = [
-    { label: 'Collection', path: '/collection' },
-    { label: 'Categories', path: '/categories' },
-    { label: 'Explore', path: '/showroom' },
-    { label: 'About Us', path: '/aboutus' },
-    { label: 'Contact', path: '/contact' },
-  ];
+  const navLinks = NAV_LINKS;
 
   const isActive = (path: string) => {
     if (path === '/') return location.pathname === '/';
@@ -101,8 +96,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
       <header
         id="main-navigation"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 overflow-hidden ${isScrolled
-            ? 'bg-brand-cream/95 backdrop-blur-md shadow-sm border-b border-brand-brown-ink/10 py-3 sm:py-3.5'
-            : 'bg-brand-cream/90 backdrop-blur-xs shadow-xs border-b border-brand-brown-ink/10 py-4 sm:py-4.5'
+          ? 'bg-brand-cream/95 backdrop-blur-md shadow-sm border-b border-brand-brown-ink/10 py-3 sm:py-3.5'
+          : 'bg-brand-cream/90 backdrop-blur-xs shadow-xs border-b border-brand-brown-ink/10 py-4 sm:py-4.5'
           }`}
       >
         <DiamondMotifPattern
@@ -122,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             >
               <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-sm bg-brand-cream-muted/70 flex items-center justify-center border border-brand-terracotta/40 group-hover:border-brand-terracotta transition-colors overflow-hidden shrink-0">
                 <img
-                  src="/logo.png"
+                  src="../src/assets/logo.jpeg"
                   alt="Soul Space Logo"
                   className="w-full h-full object-contain"
                   onError={(e) => {
@@ -160,16 +155,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   to={link.path}
                   aria-current={isActive(link.path) ? 'page' : undefined}
                   className={`relative py-1 text-sm tracking-wide transition-colors duration-200 group focus:outline-none ${isActive(link.path)
-                      ? 'text-brand-terracotta'
-                      : 'hover:text-brand-terracotta'
+                    ? 'text-brand-terracotta'
+                    : 'hover:text-brand-terracotta'
                     }`}
                 >
                   <span>{link.label}</span>
 
                   <span
                     className={`absolute bottom-0 left-0 h-[1.5px] bg-brand-terracotta transition-all duration-300 ${isActive(link.path)
-                        ? 'w-full'
-                        : 'w-0 group-hover:w-full'
+                      ? 'w-full'
+                      : 'w-0 group-hover:w-full'
                       }`}
                   />
                 </Link>
@@ -242,8 +237,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
             aria-label="Mobile navigation"
             inert={!mobileMenuOpen}
             className={`absolute inset-y-0 left-0 w-[82%] max-w-xs bg-brand-cream shadow-2xl p-5 sm:p-6 flex flex-col justify-between overflow-y-auto relative transition-transform duration-300 ease-in-out ${mobileMenuOpen
-                ? 'translate-x-0'
-                : '-translate-x-full'
+              ? 'translate-x-0'
+              : '-translate-x-full'
               }`}
             onClick={(event) => event.stopPropagation()}
           >
@@ -290,16 +285,16 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                     onClick={closeMobileMenu}
                     aria-current={isActive(link.path) ? 'page' : undefined}
                     className={`text-left text-base sm:text-lg font-display font-semibold transition-colors py-2 flex items-center justify-between gap-3 border-b border-brand-brown-ink/5 ${isActive(link.path)
-                        ? 'text-brand-terracotta'
-                        : 'text-brand-brown-dark hover:text-brand-terracotta'
+                      ? 'text-brand-terracotta'
+                      : 'text-brand-brown-dark hover:text-brand-terracotta'
                       }`}
                   >
                     <span>{link.label}</span>
 
                     <ArrowUpRight
                       className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isActive(link.path)
-                          ? 'text-brand-terracotta'
-                          : 'text-brand-terracotta/60'
+                        ? 'text-brand-terracotta'
+                        : 'text-brand-terracotta/60'
                         }`}
                     />
                   </Link>

@@ -19,6 +19,8 @@ import ShowroomPage from './pages/showroomPage';
 import Categoriespage from './pages/categories';
 // import StoryPage from './pages/StoryPage';
 import OrderPage from './pages/OrderPage';
+import NotFoundPage from './pages/NotFoundPage';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 import { MessageCircle } from 'lucide-react';
 import { SITE_CONTENT } from './data/siteContent';
@@ -78,18 +80,21 @@ function AppContent() {
       {/* Shared Navbar */}
       <Navbar onNavigate={handleNavigate} />
 
-      {/* Page Routes */}
+      {/* Page Routes wrapped in ErrorBoundary */}
       <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/aboutus" element={<CommunityPage />} />
-          <Route path="/collection" element={<CollectionPage />} />
-          <Route path="/showroom" element={<ShowroomPage />} />
-          <Route path="/categories" element={<Categoriespage />} />
-          {/* <Route path="/story" element={<StoryPage />} /> */}
-          <Route path="/order" element={<OrderPage />} />
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/aboutus" element={<CommunityPage />} />
+            <Route path="/collection" element={<CollectionPage />} />
+            <Route path="/showroom" element={<ShowroomPage />} />
+            <Route path="/categories" element={<Categoriespage />} />
+            {/* <Route path="/story" element={<StoryPage />} /> */}
+            <Route path="/order" element={<OrderPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </ErrorBoundary>
       </main>
 
       {/* Shared Footer */}

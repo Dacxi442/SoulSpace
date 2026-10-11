@@ -31,8 +31,12 @@
    Cinematic Layout
 ═══════════════════════════════════════════════════════════════════ */
 .showroom-container {
-  height: 110vh;
+  height: 100vh;
+  height: 100svh;
+  min-height: 560px;
   width: 100%;
+  /* Lets the layout react to the SECTION's own size, not just the window */
+  container: showroom / size;
 }
 
 .showroom-cinema {
@@ -44,44 +48,97 @@
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   Cinematic Header Overlay
-═══════════════════════════════════════════════════════════════════ */
-.showroom-header-overlay {
+   Responsive scale tokens
+   --u  = "one design pixel" for the current section size. Everything
+          below is expressed as calc(var(--u) * N), so the whole composition
+          grows and shrinks together instead of hitting pixel ceilings.
+   Landscape layout is designed at 1440 x 800, stacked layout at 420 x 860.
+══════════════════════════════════════════════════════════════════ */
+.showroom-header,
+.showroom-cinema {
+  /* fallback for browsers without container units */
+  --u: clamp(0.45px, min(100vw / 1440, 100svh / 800), 3px);
+
+  --hh: max(calc(var(--u) * 140), 112px);
+  /* space reserved for header   */
+  --bh: max(calc(var(--u) * 52), 44px);
+  /* space reserved for dots     */
+  --gap: calc(var(--u) * 70);
+  /* product <-> info card       */
+  --iw: calc(var(--u) * 440);
+  /* info card width             */
+  --ph: calc(var(--u) * 560);
+  /* product card height         */
+  --pw: calc(var(--ph) * 0.84);
+  /* product card width          */
+  --gw: calc(var(--pw) + var(--gap) + var(--iw));
+  /* whole group width     */
+  --py: calc(var(--hh) + (100% - var(--hh) - var(--bh)) / 2);
+  /* centre line */
+
+  --f-title: max(26px, calc(var(--u) * 46));
+  --f-pill: max(11px, calc(var(--u) * 13));
+  --f-auto: max(9px, calc(var(--u) * 10));
+  --f-glabel: max(11px, calc(var(--u) * 12));
+  --f-gtitle: max(22px, calc(var(--u) * 40));
+  --f-gtext: max(13px, calc(var(--u) * 16));
+  --f-btn: max(11px, calc(var(--u) * 13));
+  --pad: max(18px, calc(var(--u) * 28));
+  --arrow: max(36px, calc(var(--u) * 48));
+  --edge: max(12px, calc(var(--u) * 28));
+}
+
+@supports (width: 1cqw) {
+
+  .showroom-header,
+  .showroom-cinema {
+    --u: clamp(0.45px, min(100cqw / 1440, 100cqh / 800), 3px);
+    /* never let the product card run into the header or the dots */
+    --ph: min(calc(var(--u) * 560), calc(100cqh - var(--hh) - var(--bh) - 16px));
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Header
+══════════════════════════════════════════════════════════════════ */
+.showroom-header {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 40;
   display: flex;
-  justify-content: center;
-  padding-top: clamp(2rem, 5vh, 4rem);
-  /* Reduced padding to place it closer to the top */
-  pointer-events: none;
-  /* Let clicks pass through except on interactive elements */
-}
-
-.showroom-header-content {
-  text-align: center;
-  pointer-events: auto;
-  /* Enable clicks on the auto-play button */
-  display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  padding: max(6px, calc(var(--u) * 14)) 16px 0;
+  pointer-events: none;
 }
 
-.showroom-header-accent {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-bottom: 20px;
-  opacity: 0.85;
+.showroom-header h2 {
+  font-size: var(--f-title);
 }
 
-.showroom-header-line {
-  width: 48px;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(212, 163, 89, 0.6), transparent);
+.showroom-pill-wrap {
+  margin-top: max(10px, calc(var(--u) * 16));
+}
+
+.showroom-pill {
+  padding: max(5px, calc(var(--u) * 7)) max(14px, calc(var(--u) * 20));
+  font-size: var(--f-pill);
+}
+
+.showroom-auto {
+  margin-top: max(4px, calc(var(--u) * 6));
+}
+
+.showroom-auto-dot {
+  width: max(10px, calc(var(--u) * 11));
+  height: max(10px, calc(var(--u) * 11));
+}
+
+.showroom-auto-label {
+  font-size: var(--f-auto);
 }
 
 /* ── Crossfade background layers ── */
@@ -166,9 +223,9 @@
 /* Each product slot — SMOOTHER transitions */
 .showroom-p {
   position: absolute;
-  top: 54%;
-  width: clamp(220px, 35vw, 480px);
-  height: clamp(260px, 65%, 600px);
+  top: var(--py);
+  width: var(--pw);
+  height: var(--ph);
   transition:
     transform 1.4s var(--soft),
     opacity 1.2s var(--silk),
@@ -178,15 +235,16 @@
 }
 
 .showroom-p[data-pos="c"] {
-  left: 28%;
-  transform: translate(-50%, -52%);
+  /* centre of the product + info group */
+  left: calc(50% - var(--gw) / 2 + var(--pw) / 2);
+  transform: translate(-50%, -50%);
   opacity: 1;
   filter: none;
 }
 
 .showroom-p[data-pos="l"] {
   left: -20%;
-  transform: translate(-50%, -52%) scale(.78) rotateY(14deg);
+  transform: translate(-50%, -50%) scale(.78) rotateY(14deg);
   opacity: 0;
   filter: blur(10px);
   pointer-events: none;
@@ -194,14 +252,14 @@
 
 .showroom-p[data-pos="r"] {
   left: 120%;
-  transform: translate(-50%, -52%) scale(.78) rotateY(-14deg);
+  transform: translate(-50%, -50%) scale(.78) rotateY(-14deg);
   opacity: 0;
   filter: blur(10px);
   pointer-events: none;
 }
 
 .showroom-p[data-pos="hidden"] {
-  transform: translate(-50%, -52%) scale(.7);
+  transform: translate(-50%, -50%) scale(.7);
   opacity: 0;
   pointer-events: none;
 }
@@ -211,7 +269,7 @@
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: 18px;
+  border-radius: max(12px, calc(var(--u) * 18));
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(3px) saturate(1.1);
@@ -256,9 +314,9 @@
 /* ── Hotspot anchor dot (small glowing point on image) ── */
 .showroom-hs-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  margin: -5px 0 0 -5px;
+  width: max(10px, calc(var(--u) * 10));
+  height: max(10px, calc(var(--u) * 10));
+  translate: -50% -50%;
   border-radius: 50%;
   background: var(--color-brand-gold, #D4A359);
   border: 1.5px solid rgba(255, 255, 255, .9);
@@ -336,10 +394,10 @@
 ═══════════════════════════════════════════════════════════════════ */
 .showroom-gateway {
   position: absolute;
-  left: 55%;
-  top: 54%;
-  width: clamp(260px, 30vw, 420px);
-  border-radius: 16px;
+  left: calc(50% - var(--gw) / 2 + var(--pw) + var(--gap));
+  top: var(--py);
+  width: var(--iw);
+  border-radius: max(12px, calc(var(--u) * 16));
   overflow: hidden;
   opacity: 0;
   transform: translateY(calc(-50% + 12px)) scale(.96);
@@ -355,47 +413,123 @@
   transition-delay: .18s;
 }
 
-/* ══════════════════════════════════════════════════════════════════
-   Responsive — tablets  ≤ 900px
-═══════════════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .showroom-p {
-    width: clamp(200px, 42vw, 360px);
-    height: clamp(240px, 60%, 480px);
-  }
+.showroom-gateway-body {
+  padding: var(--pad);
+}
 
-  .showroom-p[data-pos="c"] {
-    left: 30%;
-  }
+.showroom-g-label {
+  font-size: var(--f-glabel);
+  margin-bottom: 0.6em;
+}
 
-  .showroom-gateway {
-    left: 58%;
-    width: clamp(220px, 35vw, 320px);
-  }
+.showroom-g-title {
+  font-size: var(--f-gtitle);
+  margin-bottom: 0.25em;
+}
+
+.showroom-g-text {
+  font-size: var(--f-gtext);
+  margin-bottom: calc(var(--pad) * 0.7);
+}
+
+.showroom-g-actions {
+  gap: max(8px, calc(var(--u) * 10));
+  padding-top: max(12px, calc(var(--u) * 16));
+}
+
+.showroom-btn {
+  padding: max(10px, calc(var(--u) * 14)) max(14px, calc(var(--u) * 22));
+  font-size: var(--f-btn);
+}
+
+.showroom-btn svg {
+  width: 1.25em;
+  height: 1.25em;
 }
 
 /* ══════════════════════════════════════════════════════════════════
-   Responsive — phones  ≤ 700px
+   Nav arrows + progress dots
 ═══════════════════════════════════════════════════════════════════ */
-@media (max-width: 700px) {
-  .showroom-p {
-    width: clamp(160px, 60vw, 260px);
-    height: clamp(180px, 45%, 320px);
+.showroom-arrow {
+  top: var(--py);
+  width: var(--arrow);
+  height: var(--arrow);
+  transform: translateY(-50%);
+}
+
+.showroom-arrow--prev {
+  left: var(--edge);
+}
+
+.showroom-arrow--next {
+  right: var(--edge);
+}
+
+.showroom-arrow--prev:hover {
+  translate: -2px 0;
+}
+
+.showroom-arrow--next:hover {
+  translate: 2px 0;
+}
+
+.showroom-dots {
+  bottom: max(12px, calc(var(--u) * 18));
+  gap: max(8px, calc(var(--u) * 10));
+}
+
+.showroom-dot {
+  height: max(6px, calc(var(--u) * 7));
+  width: max(6px, calc(var(--u) * 7));
+}
+
+.showroom-dot.is-active {
+  width: max(24px, calc(var(--u) * 28));
+}
+
+/* ══════════════════════════════════════════════════════════════════
+   Stacked layout — when the section is closer to square or taller than
+   wide (phones, portrait tablets, narrow windows). Decided by the
+   SECTION's aspect ratio, not by device width.
+   Designed at 420 x 860.
+══════════════════════════════════════════════════════════════════ */
+@container showroom (max-aspect-ratio: 5/4) {
+
+  .showroom-header,
+  .showroom-cinema {
+    --u: clamp(0.45px, min(100cqw / 420, 100cqh / 860), 3px);
+
+    --hh: max(calc(var(--u) * 128), 108px);
+    --bh: max(calc(var(--u) * 56), 48px);
+    --gap: calc(var(--u) * 14);
+    /* vertical gap here */
+    --ih: max(calc(var(--u) * 250), 190px);
+    /* space reserved for info card */
+    --iw: min(calc(100cqw - 28px), calc(var(--u) * 520));
+    --ph: min(calc(var(--u) * 390), calc(100cqh - var(--hh) - var(--bh) - var(--ih) - var(--gap) - 12px));
+    --pw: calc(var(--ph) * 0.77);
+    --py: calc((var(--hh) + 100% - var(--bh) - var(--ih) - var(--gap)) / 2);
+
+    --f-title: max(26px, calc(var(--u) * 32));
+    --f-pill: max(11px, calc(var(--u) * 12));
+    --f-glabel: max(11px, calc(var(--u) * 11));
+    --f-gtitle: max(22px, calc(var(--u) * 32));
+    --f-gtext: max(13px, calc(var(--u) * 14));
+    --f-btn: max(11px, calc(var(--u) * 12));
+    --pad: max(16px, calc(var(--u) * 24));
+    --arrow: max(34px, calc(var(--u) * 40));
+    --edge: 12px;
   }
 
-  /* Lift the image card upward so it doesn't touch the info card */
   .showroom-p[data-pos="c"] {
     left: 50%;
-    top: 36%;
   }
 
-  /* On phones, gateway card goes bottom of screen */
+  /* Info card sits at the bottom, above the dots */
   .showroom-gateway {
-    left: 14px !important;
-    right: 14px !important;
-    width: auto !important;
-    top: auto !important;
-    bottom: 54px !important;
+    left: max(14px, calc((100% - var(--iw)) / 2));
+    top: auto;
+    bottom: var(--bh);
     transform: translateY(20px) scale(0.95);
   }
 
@@ -403,7 +537,7 @@
     transform: translateY(0) scale(1);
   }
 
-  /* Hide connector line on mobile */
+  /* Hide connector line when stacked */
   .showroom-line {
     display: none;
   }

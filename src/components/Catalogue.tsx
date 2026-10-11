@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Eye, Sparkles, Search, SlidersHorizontal, LayoutGrid, Columns2, ArrowUpRight } from 'lucide-react';
 import { Product, CategoryFilter } from '../types';
-import { PRODUCTS } from '../data/bagsData';
+import { PRODUCTS, CATEGORIES_LIST } from '../data/bagsData';
+import { SITE_CONTENT } from '../data/siteContent';
 import { DiamondMotifPattern, AfricanPatternBorderRibbon } from './AfricanPatterns';
 
 interface CatalogueProps {
@@ -18,14 +19,7 @@ export const Catalogue: React.FC<CatalogueProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [layoutMode, setLayoutMode] = useState<'editorial' | 'grid'>('editorial');
 
-  const categories: CategoryFilter[] = [
-    'All',
-    'Women\'s Bags',
-    'Men\'s Bags',
-    'Custom Bags',
-    'New Designs',
-    'Fashion / Accessories'
-  ];
+  const categories = CATEGORIES_LIST;
 
   const filteredProducts = PRODUCTS.filter((product) => {
     const matchesCategory = activeCategory === 'All' || product.category === activeCategory;
@@ -48,10 +42,10 @@ export const Catalogue: React.FC<CatalogueProps> = ({
           <div className="md:text-right">
             <div className="flex items-center gap-2 md:justify-end text-xs font-mono tracking-widest text-brand-terracotta uppercase mb-2">
               <span className="w-6 h-[1.5px] bg-brand-terracotta" />
-              <span>Full Haute Soul Space Catalogue</span>
+              <span>{SITE_CONTENT.catalogue.badge}</span>
             </div>
             <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-brown-dark tracking-tight">
-              The Collection
+              {SITE_CONTENT.catalogue.title}
             </h2>
           </div>
 
@@ -62,7 +56,7 @@ export const Catalogue: React.FC<CatalogueProps> = ({
               <Search className="w-4 h-4 text-brand-brown/40 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
-                placeholder="Search silhouettes, materials..."
+                placeholder={SITE_CONTENT.catalogue.searchPlaceholder}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-9 pr-4 py-2 bg-brand-cream-muted border border-brand-brown-ink/15 rounded-sm text-xs text-brand-brown-dark placeholder-brand-brown/40 focus:outline-none focus:border-brand-terracotta w-52 sm:w-64"

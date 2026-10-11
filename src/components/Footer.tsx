@@ -16,6 +16,7 @@ import {
 } from './AfricanPatterns';
 import { Link } from 'react-router-dom';
 import { SITE_CONTENT } from '../data/siteContent';
+import { FOOTER_NAV_LINKS } from '../data/navigationData';
 
 interface FooterProps {
   onNavigate?: (sectionId: string) => void;
@@ -51,13 +52,13 @@ export const Footer: React.FC<FooterProps> = () => {
                 {SITE_CONTENT.footer.tagline}
               </h2>
               <p className="text-xs sm:text-sm text-white/75 leading-relaxed font-light max-w-sm">
-                Soul Space Creations unites full-grain, vegetable-tanned leather with handwoven African geometric textiles. Hand-stitched with passion, designed around you.
+                {SITE_CONTENT.footer.description}
               </p>
 
               {/* Atelier Location & Craft Origin */}
               <div className="pt-2 flex items-center gap-2 text-xs text-white/80 font-mono">
                 <MapPin className="w-4 h-4 text-brand-gold shrink-0" />
-                <span>Nairobi, Kenya • Handcrafted Atelier</span>
+                <span>{SITE_CONTENT.footer.atelierLocation}</span>
               </div>
             </div>
 
@@ -67,60 +68,17 @@ export const Footer: React.FC<FooterProps> = () => {
                 Navigation
               </h4>
               <ul className="space-y-2.5 text-sm text-white/90">
-                <li>
-                  <Link
-                    to="/collection"
-                    className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group"
-                  >
-                    <span>Collection</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/categories"
-                    className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group"
-                  >
-                    <span>Categories / Catalogue</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/showroom"
-                    className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group"
-                  >
-                    <span>Explore Showroom</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/order"
-                    className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group font-medium"
-                  >
-                    <span>Order Now</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-100 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/aboutus"
-                    className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group"
-                  >
-                    <span>About Us & Impact</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contact"
-                    className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group"
-                  >
-                    <span>Contact Us</span>
-                    <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </li>
+                {FOOTER_NAV_LINKS.map((link) => (
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
+                      className="hover:text-brand-gold transition-colors inline-flex items-center gap-1 group"
+                    >
+                      <span>{link.label}</span>
+                      <ArrowUpRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 

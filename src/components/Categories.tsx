@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { PRODUCTS } from '../data/bagsData';
+import { CATEGORY_CARDS } from '../data/bagsData';
+import { SITE_CONTENT } from '../data/siteContent';
 import { CategoryFilter } from '../types';
 
 interface CategoriesProps {
@@ -8,49 +9,7 @@ interface CategoriesProps {
 }
 
 export const Categories: React.FC<CategoriesProps> = ({ onSelectCategory }) => {
-  const categoriesList: {
-    id: CategoryFilter;
-    title: string;
-    description: string;
-    image: string;
-    tag: string;
-  }[] = [
-      {
-        id: 'Women\'s Bags',
-        title: "Women's Bags",
-        description: 'Structured totes, sculptural crossbodies, and statement shoulder bags.',
-        image: PRODUCTS[0].image,
-        tag: 'Hand-burnished leather'
-      },
-      {
-        id: 'Men\'s Bags',
-        title: "Men's Bags",
-        description: 'Heavyweight weekenders, architectural briefcases, and travel messengers.',
-        image: PRODUCTS[2].image,
-        tag: 'Heavy-gauge saddle stitch'
-      },
-      {
-        id: 'Custom Bags',
-        title: 'Custom Bags',
-        description: '1-of-1 bespoke pieces tailored to your exact measurements & textile preferences.',
-        image: PRODUCTS[1].image,
-        tag: 'Your Idea. Our Craft.'
-      },
-      {
-        id: 'New Designs',
-        title: 'New Designs',
-        description: 'Our latest seasonal silhouettes fusing contemporary runway cuts with ancestral motifs.',
-        image: PRODUCTS[0].image,
-        tag: 'Soul Space Fresh'
-      },
-      {
-        id: 'Fashion / Accessories',
-        title: 'Fashion / Accessories',
-        description: 'Envelope evening clutches, leather pouches, belts, and artisan accents.',
-        image: PRODUCTS[1].image,
-        tag: 'Solid brass & leather'
-      }
-    ];
+  const categoriesList = CATEGORY_CARDS;
 
   return (
     <section id="categories" className="py-14 sm:py-16 lg:py-20 bg-brand-brown-dark text-brand-cream relative overflow-hidden">
@@ -64,13 +23,13 @@ export const Categories: React.FC<CategoriesProps> = ({ onSelectCategory }) => {
         <div className="max-w-2xl mb-12 ml-auto lg:text-right">
           <div className="flex items-center gap-2 lg:justify-end text-xs font-mono tracking-widest text-brand-terracotta uppercase mb-2">
             <span className="w-6 h-[1.5px] bg-brand-terracotta" />
-            <span>Curated Silhouettes</span>
+            <span>{SITE_CONTENT.categoriesSection.tag}</span>
           </div>
           <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-cream tracking-tight">
-            Explore by Category
+            {SITE_CONTENT.categoriesSection.title}
           </h2>
           <p className="mt-3 text-sm sm:text-base text-brand-cream/70 leading-relaxed font-light">
-            Each category represents a dedicated study in proportion, load balance, and African visual language.
+            {SITE_CONTENT.categoriesSection.description}
           </p>
         </div>
 

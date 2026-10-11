@@ -4,7 +4,7 @@ import {
   DiamondMotifPattern,
   ArchitecturalGridLines
 } from './AfricanPatterns';
-import { PRODUCTS, HERO_IMAGE, BACKPACK_IMAGE } from '../data/bagsData';
+import { PRODUCTS } from '../data/bagsData';
 import { Product } from '../types';
 import heroPoster from '../assets/images/user_video_pan_part1_1790889807111.jpg';
 import { SITE_CONTENT } from '../data/siteContent';
@@ -74,29 +74,12 @@ export const Hero: React.FC<HeroProps> = ({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Signature bags from the existing hero data
+  // Signature bags from the centralized data
   const heroBags: Product[] = [
-    PRODUCTS[0], // Solstice Grand Tote
-    PRODUCTS.find((p) => p.id === 'ss-backpack-ashanti') || ({
-      id: 'ss-backpack-ashanti',
-      name: 'Ashanti Sculpted Rucksack',
-      subtitle: 'Hand-Cut Terracotta Leather & African Tribal Inlay',
-      category: 'New Designs',
-      price: '$410',
-      image: BACKPACK_IMAGE,
-      secondaryImage: HERO_IMAGE,
-      description:
-        'An architectural everyday luxury backpack crafted from vegetable-tanned terracotta leather with an authentic geometric woven African tribal inlay.',
-      craftDetails: ['Sculptural curved flap', 'Solid brass buckle clasp'],
-      dimensions: '39cm x 29cm x 13cm',
-      materials:
-        'Burnished Terracotta Leather, African Geometric Weave, Solid Antiqued Brass Clasp',
-      isFeatured: true,
-      isNew: true,
-      colorways: ['Terracotta & Ochre']
-    } as Product),
-    PRODUCTS[1], // Zaria Arch Crossbody
-    PRODUCTS[2]  // Kalahari Weekender Duffle
+    PRODUCTS[0],
+    PRODUCTS.find((p) => p.id === 'ss-backpack-ashanti') || PRODUCTS[0],
+    PRODUCTS[1],
+    PRODUCTS[2]
   ];
 
   const currentBag = heroBags[activeHeroIndex] || heroBags[0];
@@ -254,8 +237,8 @@ export const Hero: React.FC<HeroProps> = ({
       <div className="relative z-30 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-sm bg-brand-brown-near-black/65 backdrop-blur-md border border-brand-gold/35 text-brand-cream shadow-md">
           <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse" aria-hidden="true" />
-          <span className="text-[6px] sm:text-[10px] font-mono tracking-[0.2em] uppercase text-brand-cream font-medium">
-            Soul Space Creations · Limited Edition
+          <span className="text-[9px] sm:text-[10px] font-mono tracking-[0.15em] sm:tracking-[0.2em] uppercase text-brand-cream font-medium">
+            {SITE_CONTENT.hero.badge}
           </span>
         </div>
 
@@ -286,7 +269,7 @@ export const Hero: React.FC<HeroProps> = ({
       ===================================================================== */}
       <div className="relative z-20 max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 my-auto py-6 sm:py-8 flex flex-col items-center text-center">
         <div
-          className="max-w-4xl mx-auto space-y-4 sm:space-y-5 transition-transform duration-500 ease-out"
+          className="max-w-4xl 2xl:max-w-6xl mx-auto space-y-4 sm:space-y-5 transition-transform duration-500 ease-out"
           style={{
             transform: prefersReducedMotion
               ? 'none'
@@ -297,20 +280,20 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="relative w-full">
             {/* Invisible ghost placeholder to prevent ANY height shifting on small screens */}
             <div className="space-y-4 w-full invisible pointer-events-none select-none" aria-hidden="true">
-              <h1 className="font-sans itallic font-bold text-4xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl lg:whitespace-nowrap tracking-tight leading-[0.94] text-balance">
+              <h1 className="font-sans itallic font-bold text-4xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight leading-[0.94] text-balance">
                 {SITE_CONTENT.hero.title}
               </h1>
-              <h2 className="block font-sans font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] mt-2 tracking-wide">
+              <h2 className="block font-sans font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] mt-2 tracking-wide">
                 {SITE_CONTENT.hero.subtitles[2]}
               </h2>
             </div>
 
             {/* The animated visible text overlays perfectly over the ghost structure */}
             <div className="space-y-4 w-full absolute inset-0">
-              <h1 className="font-sans italic font-bold text-4xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl lg:whitespace-nowrap tracking-tight text-brand-cream leading-[0.94] drop-shadow-[0_6px_28px_rgba(0,0,0,0.85)] text-balance">
+              <h1 className="font-sans italic font-bold text-4xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight text-brand-cream leading-[0.94] drop-shadow-[0_6px_28px_rgba(0,0,0,0.85)] text-balance">
                 {SITE_CONTENT.hero.title}
               </h1>
-              <h2 className="block font-serif font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] text-brand-gold-light mt-2 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
+              <h2 className="block font-serif font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] text-brand-gold-light mt-2 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
                 {h2Text || '\u00A0'}
               </h2>
             </div>
@@ -323,8 +306,8 @@ export const Hero: React.FC<HeroProps> = ({
             </div> */}
 
           {/* Supporting Narrative Copy in a high-contrast translucent editorial backdrop */}
-          <div className="w-full max-w-2xl mx-auto px-5 sm:px-6 py-5 sm:py-6 rounded-xl bg-brand-brown-near-black/30 backdrop-blur-md border border-brand-gold/25 shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
-            <p className="font-serif text-xl sm:text-3xl md:text-4xl italic text-brand-gold font-semibold leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+          <div className="w-full max-w-2xl 2xl:max-w-3xl mx-auto px-5 sm:px-6 2xl:px-8 py-5 sm:py-6 2xl:py-8 rounded-xl bg-brand-brown-near-black/30 backdrop-blur-md border border-brand-gold/25 shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
+            <p className="font-serif text-xl sm:text-3xl md:text-4xl 2xl:text-[2.75rem] italic text-brand-gold font-semibold leading-tight drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
               {SITE_CONTENT.hero.tagline}
             </p>
 
@@ -332,19 +315,19 @@ export const Hero: React.FC<HeroProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5 pt-5 mt-5 border-t border-brand-gold/20">
               <div className="min-w-0 flex items-center sm:items-start gap-3 sm:block">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-gold shrink-0 sm:hidden"></span>
-                <div className="font-sans font-bold text-base sm:text-lg md:text-xl leading-tight text-brand-gold">
+                <div className="font-sans font-bold text-base sm:text-lg md:text-xl 2xl:text-2xl leading-tight text-brand-gold">
                   {SITE_CONTENT.hero.features[0]}
                 </div>
               </div>
               <div className="min-w-0 flex items-center sm:items-start gap-3 sm:block">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-terracotta-vivid shrink-0 sm:hidden"></span>
-                <div className="font-sans font-bold text-base sm:text-lg md:text-xl leading-tight text-brand-terracotta-vivid">
+                <div className="font-sans font-bold text-base sm:text-lg md:text-xl 2xl:text-2xl leading-tight text-brand-terracotta-vivid">
                   {SITE_CONTENT.hero.features[1]}
                 </div>
               </div>
               <div className="min-w-0 flex items-center sm:items-start gap-3 sm:block">
                 <span className="w-1.5 h-1.5 rounded-full bg-brand-gold-light shrink-0 sm:hidden"></span>
-                <div className="font-sans font-bold text-base sm:text-lg md:text-xl leading-tight text-brand-gold-light">
+                <div className="font-sans font-bold text-base sm:text-lg md:text-xl 2xl:text-2xl leading-tight text-brand-gold-light">
                   {SITE_CONTENT.hero.features[2]}
                 </div>
               </div>
@@ -373,7 +356,7 @@ export const Hero: React.FC<HeroProps> = ({
               id="btn-hero-explore"
               type="button"
               onClick={onExplore}
-              className="group inline-flex w-[85%] max-w-[280px] sm:max-w-none items-center justify-center gap-3 px-6 py-4 text-sm sm:w-auto sm:px-7 sm:py-4 sm:text-base bg-brand-gold hover:bg-brand-gold-light text-brand-brown-near-black font-extrabold tracking-[0.15em] uppercase rounded-md border border-brand-gold-light shadow-[0_10px_30px_rgba(212,175,55,0.35)] hover:shadow-[0_14px_36px_rgba(212,175,55,0.55)] transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cream"
+              className="group inline-flex w-[85%] max-w-[280px] sm:max-w-none items-center justify-center gap-3 px-6 py-4 text-sm sm:w-auto sm:px-7 sm:py-4 sm:text-base 2xl:px-9 2xl:py-5 2xl:text-lg bg-brand-gold hover:bg-brand-gold-light text-brand-brown-near-black font-extrabold tracking-[0.15em] uppercase rounded-md border border-brand-gold-light shadow-[0_10px_30px_rgba(212,175,55,0.35)] hover:shadow-[0_14px_36px_rgba(212,175,55,0.55)] transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cream"
             >
               <span>{SITE_CONTENT.hero.primaryCta}</span>
               <ArrowRight className="w-5 h-5 text-brand-brown-near-black group-hover:translate-x-1 transition-transform duration-200" />
@@ -384,7 +367,7 @@ export const Hero: React.FC<HeroProps> = ({
               id="btn-hero-gallery"
               type="button"
               onClick={handleViewGalleryClick}
-              className="group inline-flex w-[85%] max-w-[280px] sm:max-w-none items-center justify-center gap-3 px-6 py-4 text-sm sm:w-auto sm:px-7 sm:py-4 sm:text-base bg-brand-purple/85 hover:bg-brand-purple text-brand-cream font-bold tracking-[0.15em] uppercase rounded-md border border-brand-gold/50 hover:border-brand-gold shadow-[0_10px_28px_rgba(0,0,0,0.5)] transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+              className="group inline-flex w-[85%] max-w-[280px] sm:max-w-none items-center justify-center gap-3 px-6 py-4 text-sm sm:w-auto sm:px-7 sm:py-4 sm:text-base 2xl:px-9 2xl:py-5 2xl:text-lg bg-brand-purple/85 hover:bg-brand-purple text-brand-cream font-bold tracking-[0.15em] uppercase rounded-md border border-brand-gold/50 hover:border-brand-gold shadow-[0_10px_28px_rgba(0,0,0,0.5)] transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
             >
               <Compass className="w-5 h-5 text-brand-gold group-hover:rotate-12 transition-transform duration-200" />
               <span>{SITE_CONTENT.hero.secondaryCta}</span>

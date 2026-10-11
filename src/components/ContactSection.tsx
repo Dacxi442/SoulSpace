@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { MessageCircle, Send, CheckCircle2, Clock, MapPin, Mail, Phone, ShieldCheck, Instagram } from 'lucide-react';
 import { DiamondMotifPattern, ConcentricSunburstRosette, InteractiveAfricanPatternStrip } from './AfricanPatterns';
+import { SITE_CONTENT } from '../data/siteContent';
 
 export const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -17,7 +18,8 @@ export const ContactSection: React.FC = () => {
     setSubmitted(true);
   };
 
-
+  const { contact } = SITE_CONTENT;
+  const whatsappUrl = `https://wa.me/${contact.whatsappNumber}?text=${encodeURIComponent(contact.whatsappMessage)}`;
 
   return (
     <section id="contact" className="py-5 sm:py-8 lg:py-10 bg-brand-gold text-brand-cream relative overflow-hidden">
@@ -37,10 +39,10 @@ export const ContactSection: React.FC = () => {
           <div className="max-w-3xl mb-6 ml-auto lg:text-right">
 
             <h2 className="font-sans font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-cream tracking-tight">
-              Connect with Soul Space
+              {contact.sectionTitle}
             </h2>
             <p className="mt-3 font-serif italic text-2xl text-brand-gold font-medium leading-snug">
-              Speak directly with the designer.
+              {contact.sectionSubtitle}
             </p>
           </div>
 
@@ -52,13 +54,13 @@ export const ContactSection: React.FC = () => {
               {/* Social Channels */}
               <div className="p-4 sm:p-5 rounded-md bg-linear-to-br from-brand-brown to-brand-black/80 border border-brand-cream/15 shadow-xl space-y-4">
                 <h3 className="font-sans font-bold text-[13px] uppercase tracking-[0.1em] text-brand-cream">
-                  Reach Out via Our Social Channels
+                  {contact.socialTitle}
                 </h3>
 
                 <div className="flex flex-wrap items-center gap-3">
                   {/* WhatsApp */}
                   <a
-                    href="https://wa.me/?text=Hello%20S%20%26%20S%20Bags%20Collection!"
+                    href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-full border-2 border-brand-cream/80 text-brand-cream flex items-center justify-center hover:bg-brand-cream hover:text-brand-terracotta transition-all duration-300"
@@ -69,7 +71,7 @@ export const ContactSection: React.FC = () => {
 
                   {/* Email */}
                   <a
-                    href="mailto:soulspace@ssbagscollection.com"
+                    href={`mailto:${contact.email}`}
                     className="w-10 h-10 rounded-full border-2 border-brand-cream/80 text-brand-cream flex items-center justify-center hover:bg-brand-cream hover:text-brand-terracotta transition-all duration-300"
                     title="Email"
                   >
@@ -78,7 +80,7 @@ export const ContactSection: React.FC = () => {
 
                   {/* Instagram */}
                   <a
-                    href="https://instagram.com/"
+                    href={contact.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-full border-2 border-brand-cream/80 text-brand-cream flex items-center justify-center hover:bg-brand-cream hover:text-brand-terracotta transition-all duration-300"
@@ -89,7 +91,7 @@ export const ContactSection: React.FC = () => {
 
                   {/* TikTok */}
                   <a
-                    href="https://tiktok.com/"
+                    href={contact.tiktok}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 rounded-full border-2 border-brand-cream/80 text-brand-cream flex items-center justify-center hover:bg-brand-cream hover:text-brand-terracotta transition-all duration-300"
@@ -97,9 +99,6 @@ export const ContactSection: React.FC = () => {
                   >
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.84a4.84 4.84 0 01-1-.15z" /></svg>
                   </a>
-
-
-
                 </div>
               </div>
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowUpRight, Sparkles, Check } from 'lucide-react';
 import { Product } from '../types';
 import { PRODUCTS } from '../data/bagsData';
+import { SITE_CONTENT } from '../data/siteContent';
 import { DiamondMotifPattern } from './AfricanPatterns';
 
 interface FeaturedCollectionProps {
@@ -24,11 +25,11 @@ export const FeaturedCollection: React.FC<FeaturedCollectionProps> = ({
         <div className="flex flex-col md:flex-row md:items-end md:justify-end gap-4 mb-8 pb-4 border-b border-brand-brown-ink/10">
           <div className="md:text-right">
             <h2 className="font-sans text-center font-extrabold text-4xl sm:text-3xl lg:text-4xl text-brand-brown-dark tracking-tight">
-              Featured Collection
+              {SITE_CONTENT.featured.title}
             </h2>
           </div>
           <p className="mt-2 md:mt-0 font-serif italic text-base sm:text-lg text-brand-brown/75 max-w-sm md:text-right leading-snug">
-            Discover our hand-picked signature pieces, where heritage craftsmanship meets bold modern utility.
+            {SITE_CONTENT.featured.subtitle}
           </p>
         </div>
 

@@ -14,7 +14,7 @@ import {
   RotateCcw
 } from 'lucide-react';
 import { Product, CategoryFilter } from '../types';
-import { PRODUCTS } from '../data/bagsData';
+import { PRODUCTS, CATEGORIES_LIST } from '../data/bagsData';
 import { SITE_CONTENT } from '../data/siteContent';
 import {
   AfricanPatternBorderRibbon,
@@ -88,14 +88,7 @@ export default function OrderPage() {
     window.open(`mailto:${email}?subject=${subject}&body=${body}`, '_self');
   };
 
-  const categories: CategoryFilter[] = [
-    "Men's Bags",
-    "Women's Bags",
-    "Custom Bags",
-    // "Thrift Clothes",
-    "New Designs",
-    "Fashion / Accessories"
-  ];
+  const categories: CategoryFilter[] = CATEGORIES_LIST.filter((c) => c !== 'All');
 
   const popularStyles = [
     'Crossbody Bag',

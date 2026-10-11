@@ -17,9 +17,324 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Syne:wght@500;600;700;800&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet">
+
+  <style>
+    :root {
+      --loader-bg: #2e1450;       /* royal purple */
+      --loader-bg-deep: #210e3a;  /* edges of the vignette */
+      --loader-bg-lift: #3b1a63;  /* soft light behind the logo */
+      --loader-gold: #d2ae38;     /* vintage gold */
+      --loader-gold-light: #ffeaa8;
+    }
+
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    /* Two panels = the curtain that splits open when the site is ready */
+    #loader .panel {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 50.2%;
+      background:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.5'/></svg>"),
+        radial-gradient(ellipse 70% 60% at 50% 50%, var(--loader-bg-lift) 0%, var(--loader-bg) 45%, var(--loader-bg-deep) 100%);
+      background-size: 160px 160px, 100% 200%;
+      background-blend-mode: soft-light, normal;
+      transition: transform 1.1s cubic-bezier(.77,0,.18,1) .35s;
+    }
+    #loader .panel.top    { top: 0;    background-position: 0 0, 0 0; }
+    #loader .panel.bottom { bottom: 0; background-position: 0 0, 0 100%; }
+
+    #loader .stage {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(14px, 2.6vw, 24px);
+      transition: opacity .45s ease, transform .6s ease;
+      cursor: pointer;
+    }
+
+    /* Drifting gold dust */
+    #loader .dust { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+    #loader .dust i {
+      position: absolute;
+      bottom: -10px;
+      width: var(--s);
+      height: var(--s);
+      border-radius: 50%;
+      background: var(--loader-gold);
+      opacity: 0;
+      box-shadow: 0 0 8px 1px rgba(210,174,56,.55);
+      animation: rise var(--d) linear var(--w) infinite;
+    }
+
+    #loader svg {
+      width: min(92vw, 720px);
+      height: auto;
+      overflow: visible;
+      filter: drop-shadow(0 0 0 rgba(210,174,56,0));
+      animation: glow 1.6s ease 2.2s forwards, breathe 3.2s ease-in-out 6.9s infinite;
+    }
+    #loader .glyph {
+      fill: var(--loader-gold);
+      fill-opacity: 0;
+      stroke: var(--loader-gold);
+      stroke-width: 26;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+    }
+    #loader .g1 { animation: write 1.5s cubic-bezier(.6,.05,.3,1) .25s forwards, fill .7s ease 1.9s forwards; }
+    #loader .g2 { animation: write 1.5s cubic-bezier(.6,.05,.3,1) .75s forwards, fill .7s ease 2.2s forwards; }
+
+    /* The two S letters travel from the monogram into the name */
+    #loader .m1 { transform-origin: 0 0; transform: translate(385.8px,279.0px) scale(0.5,0.5); animation: morph1 1.15s cubic-bezier(.65,0,.25,1) 3.2s both; }
+    #loader .m2 { transform-origin: 0 0; transform: translate(3016.2px,279.0px) scale(0.5,0.5); animation: morph2 1.15s cubic-bezier(.65,0,.25,1) 3.2s both; }
+
+    /* Rest of the name is written letter by letter */
+    #loader .nl { stroke-width: 36; animation: write .45s ease var(--d) forwards, fill .5s ease calc(var(--d) + .3s) forwards; }
+    #loader .nl.c2 { stroke-width: 70; animation-duration: .38s, .5s; }
+
+    /* Glowing pen tip that leads each monogram stroke */
+    #loader .tip {
+      fill: none;
+      stroke: var(--loader-gold-light);
+      stroke-width: 44;
+      stroke-linecap: round;
+      stroke-dasharray: .012 2;
+      stroke-dashoffset: 0;
+      filter: drop-shadow(0 0 14px rgba(255,234,168,.95));
+    }
+    #loader .t1 { animation: tipmove 1.5s cubic-bezier(.6,.05,.3,1) .25s both, tipfade 1.5s linear .25s both; }
+    #loader .t2 { animation: tipmove 1.5s cubic-bezier(.6,.05,.3,1) .75s both, tipfade 1.5s linear .75s both; }
+
+    /* Soft sheen sweep */
+    #loader .sheen { animation: sweep 1.0s cubic-bezier(.4,0,.2,1) 2.25s both, sheenoff .01s linear 3.2s forwards; }
+
+    /* Hairline flourish */
+    #loader .rule {
+      height: 1px;
+      width: 0;
+      opacity: .9;
+      background: linear-gradient(90deg, transparent, var(--loader-gold), transparent);
+      animation: rule 1.2s cubic-bezier(.3,.7,.2,1) 5.2s forwards;
+    }
+
+    #loader .tagline {
+      margin: 0;
+      font: italic 400 clamp(15px, 2.6vw, 20px)/1.4 Georgia, "Times New Roman", serif;
+      letter-spacing: .14em;
+      color: var(--loader-gold);
+      opacity: 0;
+      transform: translateY(6px);
+      animation: tag 1.1s ease 5.5s forwards;
+    }
+
+    #loader .skip-hint {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10;
+      font-family: monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255, 234, 168, 0.75);
+      background: rgba(46, 20, 80, 0.6);
+      border: 1px solid rgba(210, 174, 56, 0.35);
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+    #loader .skip-hint:hover {
+      color: #ffeaa8;
+      border-color: #d2ae38;
+      background: rgba(46, 20, 80, 0.85);
+    }
+
+    /* Exit: content lifts away, curtain splits open */
+    #loader.done .stage { opacity: 0; transform: scale(1.04); pointer-events: none; }
+    #loader.done .skip-hint { opacity: 0; pointer-events: none; }
+    #loader.done .dust  { opacity: 0; transition: opacity .4s; }
+    #loader.done .panel.top    { transform: translateY(-101%); }
+    #loader.done .panel.bottom { transform: translateY(101%); }
+
+    @keyframes write   { to { stroke-dashoffset: 0; } }
+    @keyframes fill    { to { fill-opacity: 1; stroke-width: 0; } }
+    @keyframes morph1  { from { transform: translate(1534.3px,120.6px) scale(1.2,1.2); } }
+    @keyframes morph2  { from { transform: translate(4842.7px,120.6px) scale(-1.2,1.2); } }
+    @keyframes sheenoff { to { opacity: 0; } }
+    @keyframes tipmove { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -1; } }
+    @keyframes tipfade { 0% { opacity: 0; } 2% { opacity: 1; } 94% { opacity: 1; } 100% { opacity: 0; } }
+    @keyframes glow    { to { filter: drop-shadow(0 0 22px rgba(210,174,56,.38)); } }
+    @keyframes breathe { 0%,100% { filter: drop-shadow(0 0 22px rgba(210,174,56,.38)); }
+                         50%     { filter: drop-shadow(0 0 34px rgba(210,174,56,.6)); } }
+    @keyframes sweep   { from { transform: translateX(734px); } to { transform: translateX(5143px); } }
+    @keyframes rule    { to { width: clamp(70px, 16vw, 130px); } }
+    @keyframes tag     { to { opacity: .9; transform: none; } }
+    @keyframes rise    { 0% { transform: translate(0,0); opacity: 0; }
+                         12% { opacity: .55; }
+                         100% { transform: translate(var(--x), -105vh); opacity: 0; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      #loader .glyph, #loader .nl { animation: none; stroke-dashoffset: 0; fill-opacity: 1; stroke-width: 0; }
+      #loader .m1, #loader .m2 { animation: none; }
+      #loader .tip, #loader .sheen, #loader .dust { display: none; }
+      #loader svg { animation: none; }
+      #loader .rule { animation: none; width: 100px; }
+      #loader .tagline { animation: none; opacity: .9; transform: none; }
+      #loader .panel { transition: opacity .5s; }
+      #loader.done .panel.top, #loader.done .panel.bottom { transform: none; opacity: 0; }
+    }
+  </style>
+
+  <noscript><style>#loader { display: none !important; }</style></noscript>
 </head>
 
 <body class="bg-brand-cream text-brand-brown-text antialiased selection:bg-brand-terracotta selection:text-brand-cream">
+
+  <!-- ===== LUXURY BRAND CURTAIN LOADER ===== -->
+  <div id="loader" role="status" aria-live="polite" aria-label="Soul Space Creations, loading">
+    <div class="panel top"></div>
+    <div class="panel bottom"></div>
+    <div class="dust" aria-hidden="true">
+      <i style="left:45%;--s:2px;--d:11.8s;--w:0.4s;--x:22px"></i>
+      <i style="left:72%;--s:2px;--d:11.6s;--w:0.5s;--x:2px"></i>
+      <i style="left:31%;--s:2px;--d:9.6s;--w:3.8s;--x:-15px"></i>
+      <i style="left:15%;--s:4px;--d:9.4s;--w:5.1s;--x:30px"></i>
+      <i style="left:32%;--s:2px;--d:13.0s;--w:3.6s;--x:-16px"></i>
+      <i style="left:9%;--s:2px;--d:11.0s;--w:1.3s;--x:-23px"></i>
+      <i style="left:77%;--s:3px;--d:12.9s;--w:6.1s;--x:-24px"></i>
+      <i style="left:78%;--s:2px;--d:11.6s;--w:4.9s;--x:-26px"></i>
+      <i style="left:76%;--s:2px;--d:13.3s;--w:4.5s;--x:4px"></i>
+      <i style="left:58%;--s:3px;--d:12.3s;--w:8.3s;--x:-7px"></i>
+      <i style="left:42%;--s:2px;--d:14.6s;--w:6.3s;--x:-15px"></i>
+      <i style="left:14%;--s:3px;--d:12.7s;--w:7.9s;--x:16px"></i>
+      <i style="left:61%;--s:3px;--d:13.3s;--w:0.7s;--x:2px"></i>
+      <i style="left:57%;--s:2px;--d:14.3s;--w:1.4s;--x:1px"></i>
+      <i style="left:57%;--s:2px;--d:15.7s;--w:0.7s;--x:5px"></i>
+      <i style="left:77%;--s:3px;--d:11.4s;--w:3.2s;--x:1px"></i>
+    </div>
+
+    <div class="stage">
+      <svg viewBox="0 0 6377 2100" aria-hidden="true" focusable="false">
+        <defs>
+          <clipPath id="letters">
+            <path transform="translate(1534.3 120.6) scale(1.2) translate(-172 1520) scale(1 -1)" d="M190 72V412L305 411Q310 241 403.5 159.5Q497 78 688 78Q866 78 959.5 148.5Q1053 219 1053 354Q1053 462 996.5 520.0Q940 578 758 633L561 692Q347 757 259.5 854.0Q172 951 172 1120Q172 1310 307.0 1415.0Q442 1520 686 1520Q790 1520 914.0 1497.5Q1038 1475 1178 1432V1114H1065Q1048 1272 959.5 1342.5Q871 1413 690 1413Q532 1413 449.5 1348.5Q367 1284 367 1161Q367 1054 429.0 993.0Q491 932 692 872L877 817Q1080 756 1166.5 661.5Q1253 567 1253 408Q1253 191 1114.0 81.0Q975 -29 700 -29Q577 -29 449.5 -4.0Q322 21 190 72Z"/>
+            <path transform="translate(4842.7 120.6) scale(-1.2 1.2) translate(-172 1520) scale(1 -1)" d="M190 72V412L305 411Q310 241 403.5 159.5Q497 78 688 78Q866 78 959.5 148.5Q1053 219 1053 354Q1053 462 996.5 520.0Q940 578 758 633L561 692Q347 757 259.5 854.0Q172 951 172 1120Q172 1310 307.0 1415.0Q442 1520 686 1520Q790 1520 914.0 1497.5Q1038 1475 1178 1432V1114H1065Q1048 1272 959.5 1342.5Q871 1413 690 1413Q532 1413 449.5 1348.5Q367 1284 367 1161Q367 1054 429.0 993.0Q491 932 692 872L877 817Q1080 756 1166.5 661.5Q1253 567 1253 408Q1253 191 1114.0 81.0Q975 -29 700 -29Q577 -29 449.5 -4.0Q322 21 190 72Z"/>
+          </clipPath>
+          <linearGradient id="sheenGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#fff6d0" stop-opacity="0"/>
+            <stop offset=".5" stop-color="#fff6d0" stop-opacity=".75"/>
+            <stop offset="1" stop-color="#fff6d0" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Monogram letters -->
+        <g class="m1">
+          <path class="glyph g1" pathLength="1" transform="translate(-172 1520) scale(1 -1)" d="M190 72V412L305 411Q310 241 403.5 159.5Q497 78 688 78Q866 78 959.5 148.5Q1053 219 1053 354Q1053 462 996.5 520.0Q940 578 758 633L561 692Q347 757 259.5 854.0Q172 951 172 1120Q172 1310 307.0 1415.0Q442 1520 686 1520Q790 1520 914.0 1497.5Q1038 1475 1178 1432V1114H1065Q1048 1272 959.5 1342.5Q871 1413 690 1413Q532 1413 449.5 1348.5Q367 1284 367 1161Q367 1054 429.0 993.0Q491 932 692 872L877 817Q1080 756 1166.5 661.5Q1253 567 1253 408Q1253 191 1114.0 81.0Q975 -29 700 -29Q577 -29 449.5 -4.0Q322 21 190 72Z"/>
+          <path class="tip t1" pathLength="1" transform="translate(-172 1520) scale(1 -1)" d="M190 72V412L305 411Q310 241 403.5 159.5Q497 78 688 78Q866 78 959.5 148.5Q1053 219 1053 354Q1053 462 996.5 520.0Q940 578 758 633L561 692Q347 757 259.5 854.0Q172 951 172 1120Q172 1310 307.0 1415.0Q442 1520 686 1520Q790 1520 914.0 1497.5Q1038 1475 1178 1432V1114H1065Q1048 1272 959.5 1342.5Q871 1413 690 1413Q532 1413 449.5 1348.5Q367 1284 367 1161Q367 1054 429.0 993.0Q491 932 692 872L877 817Q1080 756 1166.5 661.5Q1253 567 1253 408Q1253 191 1114.0 81.0Q975 -29 700 -29Q577 -29 449.5 -4.0Q322 21 190 72Z"/>
+        </g>
+        <g class="m2">
+          <path class="glyph g2" pathLength="1" transform="translate(-172 1520) scale(1 -1)" d="M190 72V412L305 411Q310 241 403.5 159.5Q497 78 688 78Q866 78 959.5 148.5Q1053 219 1053 354Q1053 462 996.5 520.0Q940 578 758 633L561 692Q347 757 259.5 854.0Q172 951 172 1120Q172 1310 307.0 1415.0Q442 1520 686 1520Q790 1520 914.0 1497.5Q1038 1475 1178 1432V1114H1065Q1048 1272 959.5 1342.5Q871 1413 690 1413Q532 1413 449.5 1348.5Q367 1284 367 1161Q367 1054 429.0 993.0Q491 932 692 872L877 817Q1080 756 1166.5 661.5Q1253 567 1253 408Q1253 191 1114.0 81.0Q975 -29 700 -29Q577 -29 449.5 -4.0Q322 21 190 72Z"/>
+          <path class="tip t2" pathLength="1" transform="translate(-172 1520) scale(1 -1)" d="M190 72V412L305 411Q310 241 403.5 159.5Q497 78 688 78Q866 78 959.5 148.5Q1053 219 1053 354Q1053 462 996.5 520.0Q940 578 758 633L561 692Q347 757 259.5 854.0Q172 951 172 1120Q172 1310 307.0 1415.0Q442 1520 686 1520Q790 1520 914.0 1497.5Q1038 1475 1178 1432V1114H1065Q1048 1272 959.5 1342.5Q871 1413 690 1413Q532 1413 449.5 1348.5Q367 1284 367 1161Q367 1054 429.0 993.0Q491 932 692 872L877 817Q1080 756 1166.5 661.5Q1253 567 1253 408Q1253 191 1114.0 81.0Q975 -29 700 -29Q577 -29 449.5 -4.0Q322 21 190 72Z"/>
+        </g>
+
+        <!-- Sheen -->
+        <g clip-path="url(#letters)">
+          <g transform="skewX(-18)"><rect class="sheen" x="0" y="-29" width="620" height="2159" fill="url(#sheenGrad)"/></g>
+        </g>
+
+        <!-- Soul Space Creations letters -->
+        <g class="name">
+          <path class="glyph nl" pathLength="1" style="--d:4.05s" transform="translate(1001.2 1039.0) scale(0.5 -0.5)" d="M616 70Q764 70 839.5 187.0Q915 304 915 532Q915 760 839.5 876.5Q764 993 616 993Q468 993 392.5 876.5Q317 760 317 532Q317 304 393.0 187.0Q469 70 616 70ZM616 -29Q384 -29 243.0 124.5Q102 278 102 532Q102 786 242.5 939.0Q383 1092 616 1092Q849 1092 989.5 939.0Q1130 786 1130 532Q1130 278 989.5 124.5Q849 -29 616 -29Z"/>
+          <path class="glyph nl" pathLength="1" style="--d:4.18s" transform="translate(1617.8 1039.0) scale(0.5 -0.5)" d="M725 1063H1069V106H1243V0H885V188Q834 82 753.0 26.5Q672 -29 565 -29Q388 -29 304.5 71.5Q221 172 221 387V956H55V1063H406V444Q406 250 453.5 178.0Q501 106 623 106Q751 106 818.0 200.0Q885 294 885 473V956H725Z"/>
+          <path class="glyph nl" pathLength="1" style="--d:4.31s" transform="translate(2277.2 1039.0) scale(0.5 -0.5)" d="M420 106H594V0H59V106H236V1450H59V1556H420Z"/>
+          <path class="glyph nl" pathLength="1" style="--d:4.44s" transform="translate(3631.8 1039.0) scale(0.5 -0.5)" d="M420 584V479Q420 287 493.5 186.5Q567 86 707 86Q848 86 920.5 199.0Q993 312 993 532Q993 753 920.5 865.0Q848 977 707 977Q567 977 493.5 876.0Q420 775 420 584ZM236 956H59V1063H420V897Q474 997 557.5 1044.5Q641 1092 764 1092Q960 1092 1084.0 937.0Q1208 782 1208 532Q1208 282 1084.0 126.5Q960 -29 764 -29Q641 -29 557.5 18.5Q474 66 420 166V-319H594V-426H59V-319H236Z"/>
+          <path class="glyph nl" pathLength="1" style="--d:4.57s" transform="translate(4287.2 1039.0) scale(0.5 -0.5)" d="M815 334V559H578Q441 559 374.0 500.0Q307 441 307 319Q307 208 375.0 143.0Q443 78 559 78Q674 78 744.5 149.0Q815 220 815 334ZM999 664V106H1163V0H815V115Q754 41 674.0 6.0Q594 -29 487 -29Q310 -29 206.0 65.0Q102 159 102 319Q102 484 221.0 575.0Q340 666 557 666H815V739Q815 860 741.5 926.5Q668 993 535 993Q425 993 360.0 943.0Q295 893 279 795H184V1010Q280 1051 370.5 1071.5Q461 1092 547 1092Q768 1092 883.5 982.5Q999 873 999 664Z"/>
+          <path class="glyph nl" pathLength="1" style="--d:4.70s" transform="translate(4897.8 1039.0) scale(0.5 -0.5)" d="M1053 319Q1014 149 903.0 60.0Q792 -29 616 -29Q384 -29 243.0 124.5Q102 278 102 532Q102 787 243.0 939.5Q384 1092 616 1092Q717 1092 817.0 1068.5Q917 1045 1018 997V725H911Q890 865 819.5 929.0Q749 993 618 993Q469 993 393.0 877.5Q317 762 317 532Q317 302 392.5 186.0Q468 70 618 70Q737 70 808.0 132.0Q879 194 905 319Z"/>
+          <path class="glyph nl" pathLength="1" style="--d:4.83s" transform="translate(5471.2 1039.0) scale(0.5 -0.5)" d="M1110 512H317V504Q317 289 398.0 179.5Q479 70 637 70Q758 70 835.5 133.5Q913 197 944 322H1092Q1048 147 929.5 59.0Q811 -29 618 -29Q385 -29 243.5 124.5Q102 278 102 532Q102 784 241.0 938.0Q380 1092 606 1092Q847 1092 976.0 943.5Q1105 795 1110 512ZM893 618Q887 804 814.5 898.5Q742 993 606 993Q479 993 406.0 898.0Q333 803 317 618Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:4.70s" transform="translate(1499.5 1809.9) scale(0.3 -0.3)" d="M1444 395Q1378 186 1222.5 78.5Q1067 -29 829 -29Q683 -29 558.0 21.0Q433 71 336 168Q224 280 169.5 422.5Q115 565 115 745Q115 1093 316.0 1306.5Q517 1520 846 1520Q968 1520 1106.0 1488.0Q1244 1456 1403 1391V1047H1290Q1253 1235 1141.5 1324.0Q1030 1413 829 1413Q590 1413 467.0 1243.5Q344 1074 344 745Q344 417 467.0 247.5Q590 78 829 78Q996 78 1104.0 157.5Q1212 237 1260 395Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:4.79s" transform="translate(2014.6 1809.9) scale(0.3 -0.3)" d="M979 1065V799H873Q868 878 829.0 917.0Q790 956 715 956Q579 956 506.5 862.0Q434 768 434 592V106H647V0H84V106H250V958H74V1063H434V874Q488 985 573.0 1038.5Q658 1092 780 1092Q825 1092 874.5 1085.0Q924 1078 979 1065Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:4.88s" transform="translate(2353.3 1809.9) scale(0.3 -0.3)" d="M1110 512H317V504Q317 289 398.0 179.5Q479 70 637 70Q758 70 835.5 133.5Q913 197 944 322H1092Q1048 147 929.5 59.0Q811 -29 618 -29Q385 -29 243.5 124.5Q102 278 102 532Q102 784 241.0 938.0Q380 1092 606 1092Q847 1092 976.0 943.5Q1105 795 1110 512ZM893 618Q887 804 814.5 898.5Q742 993 606 993Q479 993 406.0 898.0Q333 803 317 618Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:4.97s" transform="translate(2761.9 1809.9) scale(0.3 -0.3)" d="M815 334V559H578Q441 559 374.0 500.0Q307 441 307 319Q307 208 375.0 143.0Q443 78 559 78Q674 78 744.5 149.0Q815 220 815 334ZM999 664V106H1163V0H815V115Q754 41 674.0 6.0Q594 -29 487 -29Q310 -29 206.0 65.0Q102 159 102 319Q102 484 221.0 575.0Q340 666 557 666H815V739Q815 860 741.5 926.5Q668 993 535 993Q425 993 360.0 943.0Q295 893 279 795H184V1010Q280 1051 370.5 1071.5Q461 1092 547 1092Q768 1092 883.5 982.5Q999 873 999 664Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:5.06s" transform="translate(3173.2 1809.9) scale(0.3 -0.3)" d="M221 956H59V1063H221V1393H406V1063H752V956H406V281Q406 146 432.0 108.0Q458 70 528 70Q600 70 633.0 112.5Q666 155 668 250H807Q799 105 728.0 38.0Q657 -29 512 -29Q353 -29 287.0 41.5Q221 112 221 281Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:5.15s" transform="translate(3465.1 1809.9) scale(0.3 -0.3)" d="M199 1393Q199 1439 232.5 1473.0Q266 1507 313 1507Q359 1507 392.5 1473.0Q426 1439 426 1393Q426 1346 393.0 1313.0Q360 1280 313 1280Q266 1280 232.5 1313.0Q199 1346 199 1393ZM434 106H608V0H74V106H250V956H74V1063H434Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:5.24s" transform="translate(3706.6 1809.9) scale(0.3 -0.3)" d="M616 70Q764 70 839.5 187.0Q915 304 915 532Q915 760 839.5 876.5Q764 993 616 993Q468 993 392.5 876.5Q317 760 317 532Q317 304 393.0 187.0Q469 70 616 70ZM616 -29Q384 -29 243.0 124.5Q102 278 102 532Q102 786 242.5 939.0Q383 1092 616 1092Q849 1092 989.5 939.0Q1130 786 1130 532Q1130 278 989.5 124.5Q849 -29 616 -29Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:5.33s" transform="translate(4121.5 1809.9) scale(0.3 -0.3)" d="M84 0V106H250V956H74V1063H434V874Q485 982 566.5 1037.0Q648 1092 756 1092Q932 1092 1015.0 991.0Q1098 890 1098 676V106H1262V0H754V106H913V618Q913 813 865.0 885.5Q817 958 696 958Q568 958 501.0 864.5Q434 771 434 592V106H594V0Z"/>
+          <path class="glyph nl c2" pathLength="1" style="--d:5.42s" transform="translate(4562.2 1809.9) scale(0.3 -0.3)" d="M115 59V307H221Q225 188 295.5 129.0Q366 70 504 70Q628 70 693.0 116.5Q758 163 758 252Q758 322 710.5 365.0Q663 408 510 457L377 502Q240 546 178.5 612.0Q117 678 117 780Q117 926 224.0 1009.0Q331 1092 520 1092Q604 1092 697.0 1070.0Q790 1048 889 1006V774H783Q779 877 711.0 935.0Q643 993 526 993Q410 993 350.5 952.0Q291 911 291 829Q291 762 336.0 721.5Q381 681 516 639L662 594Q813 547 879.5 476.5Q946 406 946 295Q946 144 830.5 57.5Q715 -29 512 -29Q409 -29 311.0 -7.0Q213 15 115 59Z"/>
+        </g>
+      </svg>
+
+      <div class="rule"></div>
+      <p class="tagline">Bags and thrifting shop</p>
+    </div>
+
+    <!-- Skip / Enter Atelier Button -->
+    <button id="loader-skip" class="skip-hint" type="button" aria-label="Enter Atelier now">
+      Enter Atelier &rarr;
+    </button>
+  </div>
+
+  <script>
+    (function () {
+      var MIN_MS = 6200; // Allows the elegant signature monogram to write out and morph
+      var start = Date.now();
+      var loader = document.getElementById('loader');
+      var skipBtn = document.getElementById('loader-skip');
+      if (!loader) return;
+
+      var dismissed = false;
+
+      function hide() {
+        if (dismissed) return;
+        dismissed = true;
+        loader.classList.add('done');
+        setTimeout(function () {
+          if (loader && loader.parentNode) {
+            loader.parentNode.removeChild(loader);
+          }
+        }, 1600);
+      }
+
+      // Allow user to click skip button or anywhere on stage to enter immediately
+      if (skipBtn) {
+        skipBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          hide();
+        });
+      }
+
+      var stage = loader.querySelector('.stage');
+      if (stage) {
+        stage.addEventListener('click', hide);
+      }
+
+      // Smooth trigger on window load with minimum animation time
+      window.addEventListener('load', function () {
+        var elapsed = Date.now() - start;
+        setTimeout(hide, Math.max(0, MIN_MS - elapsed));
+      });
+
+      // Safety timeout (never leave the user waiting longer than 7.8s even on slow connections)
+      setTimeout(hide, 7800);
+    })();
+  </script>
+  <!-- ===== END LOADER ===== -->
+
   <div id="root"></div>
   <script type="module" src="/src/main.tsx"></script>
 </body>
