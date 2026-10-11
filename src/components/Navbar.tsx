@@ -120,17 +120,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   src="../src/assets/logo.jpeg"
                   alt="Soul Space Logo"
                   className="w-full h-full object-contain"
-                  onError={(e) => {
-                    e.currentTarget.style.display = 'none';
-                    const fallback =
-                      e.currentTarget.nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = 'flex';
-                  }}
+                // onError={(e) => {
+                //   e.currentTarget.style.display = 'none';
+                //   const fallback =
+                //     e.currentTarget.nextElementSibling as HTMLElement;
+                //   if (fallback) fallback.style.display = 'flex';
+                // }}
                 />
 
-                <span className="hidden font-display font-extrabold text-sm tracking-tight text-brand-brown-dark">
+                {/* <span className="hidden font-display font-extrabold text-sm tracking-tight text-brand-brown-dark">
                   S<span className="text-brand-terracotta">&amp;</span>S
-                </span>
+                </span> */}
               </div>
 
               {/* <div className="flex flex-col">
