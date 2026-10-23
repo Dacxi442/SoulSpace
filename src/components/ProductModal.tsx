@@ -35,7 +35,7 @@ export const ProductModal: React.FC<ProductModalProps> = ({
     const message = encodeURIComponent(
       `Hello Soul Space Creations, I would like to order or inquire about the "${product.name}" (${product.price || 'Bespoke'}).\n\n` +
       `Category: ${product.category}\n` +
-      `Materials: ${product.materials}\n` +
+      (product.materials ? `Materials: ${product.materials}\n` : '') +
       `Please let me know availability and commission details!`
     );
     window.open(`https://wa.me/${SITE_CONTENT.contact.whatsappNumber}?text=${message}`, '_blank');
@@ -113,11 +113,11 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <span className="text-xs font-mono text-brand-terracotta uppercase tracking-widest">
                   {product.subtitle}
                 </span>
-                <h2 className="font-display font-extrabold text-2xl sm:text-3xl text-brand-brown-dark mt-1">
+                <h2 className="font-sans font-extrabold text-2xl sm:text-3xl text-brand-brown-dark mt-1">
                   {product.name}
                 </h2>
                 {product.price && (
-                  <div className="font-display font-bold text-2xl text-brand-brown-dark mt-2">
+                  <div className="font-sans font-bold text-2xl text-brand-brown-dark mt-2">
                     {product.price}
                   </div>
                 )}
@@ -128,19 +128,44 @@ export const ProductModal: React.FC<ProductModalProps> = ({
               </p>
 
               {/* Handcrafted Checklist */}
-              <div className="pt-2">
-                <div className="text-xs font-mono uppercase tracking-wider text-brand-brown/60 mb-2">
-                  Soul Space Craft Details
+              {product.craftDetails && product.craftDetails.length > 0 && (
+                <div className="pt-2">
+                  <div className="text-xs font-mono uppercase tracking-wider text-brand-brown/60 mb-2">
+                    Soul Space Craft Details
+                  </div>
+                  <div className="space-y-1.5">
+                    {product.craftDetails.map((detail, i) => (
+                      <div key={i} className="flex items-start gap-2 text-xs text-brand-brown-dark">
+                        <Check className="w-3.5 h-3.5 text-brand-terracotta shrink-0 mt-0.5" />
+                        <span>{detail}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="space-y-1.5">
-                  {product.craftDetails.map((detail, i) => (
-                    <div key={i} className="flex items-start gap-2 text-xs text-brand-brown-dark">
-                      <Check className="w-3.5 h-3.5 text-brand-terracotta shrink-0 mt-0.5" />
-                      <span>{detail}</span>
-                    </div>
-                  ))}
+              )}
+
+              {/* Size & Options Badge */}
+              {product.sizes && product.sizes.length > 0 && (
+                <div className="pt-2">
+                  <div className="flex items-center gap-1.5 text-xs font-mono uppercase tracking-wider text-brand-brown/70 mb-2">
+                    <Ruler className="w-3.5 h-3.5 text-brand-terracotta" />
+                    <span>Size Options:</span>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {product.sizes.map((s) => (
+                      <span
+                        key={s}
+                        className={`px-3 py-1 rounded-sm text-xs font-medium border ${s === product.size
+                          ? 'bg-brand-terracotta text-brand-cream border-brand-terracotta font-semibold shadow-sm'
+                          : 'bg-brand-cream-muted text-brand-brown-dark border-brand-brown-ink/20'
+                          }`}
+                      >
+                        {s} {s === product.size && '• Default'}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
 
               {/* Specifications Box */}
               {/* <div className="p-3.5 rounded bg-brand-cream-muted border border-brand-brown-ink/10 space-y-2 text-xs">
@@ -180,16 +205,6 @@ export const ProductModal: React.FC<ProductModalProps> = ({
                 <span>Order via WhatsApp Consultation</span>
               </button>
 
-              <button
-                onClick={() => {
-                  onClose();
-                  onCustomCommission(product);
-                }}
-                className="w-full py-3 bg-brand-cream border border-brand-brown-ink/30 text-brand-brown-dark text-xs font-semibold uppercase tracking-wider rounded-sm hover:border-brand-terracotta hover:text-brand-terracotta transition-colors flex items-center justify-center gap-2"
-              >
-                <Sparkles className="w-4 h-4 text-brand-gold" />
-                <span>Customize This Silhouette</span>
-              </button>
             </div>
 
           </div>

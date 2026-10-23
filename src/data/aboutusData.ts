@@ -1,7 +1,8 @@
 import heroImg from '../assets/images/ss_craft_artisan_1790067482692.jpg';
-import workshopImg1 from '../assets/bags/bag1 (16).jpeg';
-import workshopImg2 from '../assets/bags/bag1 (21).jpeg';
-import workshopImg3 from '../assets/bags/bag1 (26).jpeg';
+import workshopImg1 from '../assets/bags/cute aesthetic leather bag (1).jpeg';
+
+import workshopImg2 from '../assets/bags/cute leather bag maroon.jpeg';
+import workshopImg3 from '../assets/bags/cute leather bag maroon.jpeg';
 
 export const ABOUT_US_DATA = {
   sectionTag: 'Beyond Fashion',

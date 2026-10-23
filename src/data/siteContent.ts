@@ -26,11 +26,6 @@ export const SITE_CONTENT = {
     badge: "Full Haute Soul Space Catalogue",
     searchPlaceholder: "Search silhouettes, materials...",
   },
-  categoriesSection: {
-    tag: "Curated Silhouettes",
-    title: "Explore by Category",
-    description: "Each category represents a dedicated study in proportion, load balance, and African visual language."
-  },
   footer: {
     tagline: "Crafting soulful bags, one stitch at a time!",
     description: "Soul Space Creations unites full-grain, vegetable-tanned leather with handwoven African geometric textiles. Hand-stitched with passion, designed around you.",

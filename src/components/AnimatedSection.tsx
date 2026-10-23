@@ -40,7 +40,7 @@ export const AnimatedSection: React.FC<AnimatedSectionProps> = ({
               scale: 1
             }
       }
-      viewport={{ once: true, amount: 0.14 }}
+      viewport={{ once: true, amount: 'some' }}
       transition={{
         duration: 0.85,
         delay: delay,

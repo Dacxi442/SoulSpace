@@ -7,13 +7,23 @@ export interface Product {
   image: string;
   secondaryImage?: string;
   description: string;
-  craftDetails: string[];
-  dimensions: string;
-  materials: string;
   isFeatured?: boolean;
   isNew?: boolean;
   isCustomOnly?: boolean;
-  colorways: string[];
+  craftDetails?: string[];
+  dimensions?: string;
+  materials?: string;
+  colorways?: string[];
+  /** Optional grouping for bags sharing the same silhouette in the shop */
+  groupId?: string;
+  groupName?: string;
+  /** Swatch color hex code and display label */
+  colorHex?: string;
+  colorName?: string;
+  /** Product primary size */
+  size?: string;
+  /** Available size options (e.g. Small, Medium, Large, XL) */
+  sizes?: string[];
 }
 
 export type CategoryFilter = 'All' | 'Women\'s Bags' | 'Men\'s Bags' | 'Custom Bags' | 'New Designs' | 'Fashion / Accessories';
@@ -71,4 +81,13 @@ export interface CategoryCard {
   description: string;
   image: string;
   tag: string;
+}
+
+export interface ProductGroup {
+  id: string;
+  name: string;
+  category: CategoryFilter;
+  isFeatured?: boolean;
+  isNew?: boolean;
+  products: Product[];
 }

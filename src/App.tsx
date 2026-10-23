@@ -4,6 +4,7 @@ import {
   BrowserRouter,
   Routes,
   Route,
+  Navigate,
   useNavigate,
   useLocation,
 } from 'react-router-dom';
@@ -14,8 +15,6 @@ import { Footer } from './components/Footer';
 import HomePage from './pages/HomePage';
 import ContactPage from './pages/ContactPage';
 import CommunityPage from './pages/AboutusPage';
-import CollectionPage from './pages/CollectionPage';
-import ShowroomPage from './pages/showroomPage';
 import Categoriespage from './pages/categories';
 // import StoryPage from './pages/StoryPage';
 import OrderPage from './pages/OrderPage';
@@ -87,9 +86,10 @@ function AppContent() {
             <Route path="/" element={<HomePage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/aboutus" element={<CommunityPage />} />
-            <Route path="/collection" element={<CollectionPage />} />
-            <Route path="/showroom" element={<ShowroomPage />} />
             <Route path="/categories" element={<Categoriespage />} />
+            <Route path="/shop" element={<Categoriespage />} />
+            <Route path="/collection" element={<Navigate to="/categories" replace />} />
+            <Route path="/showroom" element={<Navigate to="/#showroom" replace />} />
             {/* <Route path="/story" element={<StoryPage />} /> */}
             <Route path="/order" element={<OrderPage />} />
             <Route path="*" element={<NotFoundPage />} />
@@ -120,7 +120,7 @@ function AppContent() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <AppContent />
     </BrowserRouter>
   );

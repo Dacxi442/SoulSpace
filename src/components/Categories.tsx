@@ -19,19 +19,6 @@ export const Categories: React.FC<CategoriesProps> = ({ onSelectCategory }) => {
 
       <div className="max-w-7xl ml-auto mr-0 px-4 sm:px-6 lg:px-8 relative z-10">
 
-        {/* Header */}
-        <div className="max-w-2xl mb-12 ml-auto lg:text-right">
-          <div className="flex items-center gap-2 lg:justify-end text-xs font-mono tracking-widest text-brand-terracotta uppercase mb-2">
-            <span className="w-6 h-[1.5px] bg-brand-terracotta" />
-            <span>{SITE_CONTENT.categoriesSection.tag}</span>
-          </div>
-          <h2 className="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-cream tracking-tight">
-            {SITE_CONTENT.categoriesSection.title}
-          </h2>
-          <p className="mt-3 text-sm sm:text-base text-brand-cream/70 leading-relaxed font-light">
-            {SITE_CONTENT.categoriesSection.description}
-          </p>
-        </div>
 
         {/* Categories Bento / Asymmetric Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -33,7 +33,7 @@ export default function HomePage() {
     <>
       <AnimatedSection id="hero-wrap" delay={0}>
         <Hero
-          onExplore={() => navigate('/collection')}
+          onExplore={() => navigate('/categories')}
           onViewGallery={() => navigate('/categories')}
           onOpenBespoke={() => navigate('/contact')}
           onSelectProduct={setSelectedProduct}

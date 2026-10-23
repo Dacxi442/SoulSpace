@@ -12,6 +12,7 @@
     content="Bags and Thrifting Shop and bespoke accessories. Handcrafted with traditional artisan techniques, contemporary luxury silhouettes, and African geometric identity." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -138,20 +139,30 @@
       align-items: center;
       justify-content: center;
       font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(24px, 5.5vw, 34px);
+      font-weight: 600;
+      font-size: clamp(28px, 6.2vw, 38px);
       color: var(--loader-gold-light);
-      letter-spacing: -0.04em;
+      letter-spacing: -0.02em;
+      line-height: 1;
       text-shadow: 0 2px 14px rgba(212, 175, 55, 0.6);
       transform: scale(0.95);
       animation: loaderBreathe 3s ease-in-out infinite;
+      user-select: none;
     }
 
-    #loader .emblem-inner span {
+    #loader .emblem-inner span,
+    #loader .emblem-inner .emblem-inner-symbol {
       color: var(--loader-terracotta);
-      font-weight: 700;
-      font-size: 0.85em;
-      margin: 0 1px;
+      font-weight: 500;
+      font-size: 0.42em;
+      margin: 0 3px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-shadow: 0 1px 8px rgba(217, 90, 43, 0.4);
+      position: relative;
+      top: -1px;
     }
 
     /* Brand Title & Tagline */
@@ -411,7 +422,7 @@
         <div class="emblem-ring"></div>
         <div class="emblem-ring-rev"></div>
         <div class="emblem-inner">
-          S<span>&</span>S
+          S<span class="emblem-inner-symbol">&</span>Ƨ
         </div>
       </div>
 

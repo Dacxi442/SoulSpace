@@ -62,11 +62,11 @@ export default function NotFoundPage() {
           </Link>
 
           <Link
-            to="/collection"
+            to="/categories"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-brand-gold hover:bg-brand-gold-light text-brand-brown-near-black text-xs font-extrabold uppercase tracking-wider transition-all shadow-md"
           >
             <ShoppingBag className="w-4 h-4" />
-            <span>View Collection</span>
+            <span>Visit The Shop</span>
           </Link>
         </div>
 
@@ -80,10 +80,10 @@ export default function NotFoundPage() {
               to="/categories"
               className="px-3 py-1.5 rounded-sm bg-brand-cream-muted hover:bg-brand-brown-dark hover:text-brand-cream text-xs font-medium text-brand-brown-dark transition-colors border border-brand-brown-ink/10"
             >
-              Categories & Silhouettes
+              Shop All Bags
             </Link>
             <Link
-              to="/showroom"
+              to="/#showroom"
               className="px-3 py-1.5 rounded-sm bg-brand-cream-muted hover:bg-brand-brown-dark hover:text-brand-cream text-xs font-medium text-brand-brown-dark transition-colors border border-brand-brown-ink/10"
             >
               Floating Showroom

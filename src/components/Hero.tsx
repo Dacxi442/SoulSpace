@@ -77,9 +77,9 @@ export const Hero: React.FC<HeroProps> = ({
   // Signature bags from the centralized data
   const heroBags: Product[] = [
     PRODUCTS[0],
-    PRODUCTS.find((p) => p.id === 'ss-backpack-ashanti') || PRODUCTS[0],
-    PRODUCTS[1],
-    PRODUCTS[2]
+    PRODUCTS.find((p) => p.id === 'back-pack') || PRODUCTS[0],
+    PRODUCTS[2] || PRODUCTS[0],
+    PRODUCTS[3] || PRODUCTS[0]
   ];
 
   const currentBag = heroBags[activeHeroIndex] || heroBags[0];
@@ -280,17 +280,17 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="relative w-full">
             {/* Invisible ghost placeholder to prevent ANY height shifting on small screens */}
             <div className="space-y-4 w-full invisible pointer-events-none select-none" aria-hidden="true">
-              <h1 className="font-sans itallic font-bold text-4xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight leading-[0.94] text-balance">
+              <h1 className="font-sans itallic font-bold text-6xl sm:text-8xl md:text-9xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight leading-[0.94] text-balance">
                 {SITE_CONTENT.hero.title}
               </h1>
-              <h2 className="block font-sans font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] mt-2 tracking-wide">
+              <h2 className="block font-sans font-light text-4xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] mt-2 tracking-wide">
                 {SITE_CONTENT.hero.subtitles[2]}
               </h2>
             </div>
 
             {/* The animated visible text overlays perfectly over the ghost structure */}
             <div className="space-y-4 w-full absolute inset-0">
-              <h1 className="font-sans italic font-bold text-4xl sm:text-6xl md:text-7xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight text-brand-cream leading-[0.94] drop-shadow-[0_6px_28px_rgba(0,0,0,0.85)] text-balance">
+              <h1 className="font-sans italic font-bold text-6xl sm:text-8xl md:text-9xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight text-brand-cream leading-[0.94] drop-shadow-[0_6px_28px_rgba(0,0,0,0.85)] text-balance">
                 {SITE_CONTENT.hero.title}
               </h1>
               <h2 className="block font-serif font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] text-brand-gold-light mt-2 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
@@ -350,7 +350,7 @@ export const Hero: React.FC<HeroProps> = ({
           }}
         >
           {/* Primary & Secondary CTA Buttons Positioned on the Video */}
-          <div className="flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:gap-3.5">
+          <div className="flex w-[90%] flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:gap-3.5">
             {/* Primary CTA: Explore Collection */}
             <button
               id="btn-hero-explore"

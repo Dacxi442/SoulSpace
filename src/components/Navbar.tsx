@@ -92,13 +92,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
   return (
     <>
-      {/* Main Navbar — Original sizing and styling preserved */}
+      {/* Main Navbar with Frosted Glass Effect */}
       <header
         id="main-navigation"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 overflow-hidden ${isScrolled
-          ? 'bg-brand-cream/95 backdrop-blur-md shadow-sm border-b border-brand-brown-ink/10 py-3 sm:py-3.5'
-          : 'bg-brand-cream/90 backdrop-blur-xs shadow-xs border-b border-brand-brown-ink/10 py-4 sm:py-4.5'
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 overflow-hidden border-b border-brand-brown-ink/10 ${
+          isScrolled
+            ? 'bg-brand-cream/80 backdrop-blur-xl shadow-md py-3 sm:py-3.5'
+            : 'bg-brand-cream/70 backdrop-blur-lg shadow-xs py-3.5 sm:py-4'
+        }`}
       >
         <DiamondMotifPattern
           className="text-brand-terracotta absolute inset-0 pointer-events-none"
@@ -120,28 +121,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   src="/logo.jpeg"
                   alt="Soul Space Logo"
                   className="w-full h-full object-contain"
-                // onError={(e) => {
-                //   e.currentTarget.style.display = 'none';
-                //   const fallback =
-                //     e.currentTarget.nextElementSibling as HTMLElement;
-                //   if (fallback) fallback.style.display = 'flex';
-                // }}
                 />
-
-                {/* <span className="hidden font-display font-extrabold text-sm tracking-tight text-brand-brown-dark">
-                  S<span className="text-brand-terracotta">&amp;</span>S
-                </span> */}
               </div>
-
-              {/* <div className="flex flex-col">
-                <span className="font-display font-bold text-sm sm:text-base tracking-widest text-brand-brown-dark uppercase leading-none">
-                  {SITE_CONTENT.brand.name}
-                </span>
-
-                <span className="font-serif italic text-[11px] sm:text-xs tracking-wider text-brand-terracotta font-semibold mt-1">
-                  {SITE_CONTENT.brand.subtitle}
-                </span>
-              </div> */}
             </Link>
 
             {/* Desktop Navigation */}
@@ -154,67 +135,66 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                   key={link.path}
                   to={link.path}
                   aria-current={isActive(link.path) ? 'page' : undefined}
-                  className={`relative py-1 text-sm tracking-wide transition-colors duration-200 group focus:outline-none ${isActive(link.path)
-                    ? 'text-brand-terracotta'
-                    : 'hover:text-brand-terracotta'
-                    }`}
+                  className={`relative py-1 text-sm tracking-wide transition-colors duration-200 group focus:outline-none ${
+                    isActive(link.path)
+                      ? 'text-brand-terracotta'
+                      : 'hover:text-brand-terracotta'
+                  }`}
                 >
                   <span>{link.label}</span>
 
                   <span
-                    className={`absolute bottom-0 left-0 h-[1.5px] bg-brand-terracotta transition-all duration-300 ${isActive(link.path)
-                      ? 'w-full'
-                      : 'w-0 group-hover:w-full'
-                      }`}
+                    className={`absolute bottom-0 left-0 h-[1.5px] bg-brand-terracotta transition-all duration-300 ${
+                      isActive(link.path)
+                        ? 'w-full'
+                        : 'w-0 group-hover:w-full'
+                    }`}
                   />
                 </Link>
               ))}
             </nav>
 
-            {/* Desktop Order and WhatsApp Buttons */}
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Unified Right-End Action Buttons & Navigation Toggle */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              {/* Order Button */}
               <Link
                 to="/order"
-                className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-brand-cream bg-brand-brown-dark hover:bg-brand-terracotta transition-all duration-300 rounded-sm shadow-xs border border-brand-brown-dark hover:border-brand-terracotta group"
+                onClick={closeMobileMenu}
+                className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-3.5 sm:py-2 text-[11px] sm:text-xs font-semibold text-brand-cream bg-brand-brown-dark hover:bg-brand-terracotta transition-all duration-300 rounded-sm shadow-xs border border-brand-brown-dark hover:border-brand-terracotta group shrink-0"
                 title="Place an Order"
+                aria-label="Place an Order"
               >
-                <ShoppingBag className="w-4 h-4 text-brand-gold group-hover:text-brand-cream transition-colors" />
+                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-gold group-hover:text-brand-cream transition-colors" />
                 <span className="tracking-wider uppercase">Order</span>
               </Link>
 
+              {/* WhatsApp Button */}
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-3 py-2 text-xs font-medium text-brand-brown-dark hover:text-brand-terracotta transition-colors rounded-sm border border-brand-terracotta/40 hover:border-brand-terracotta bg-brand-cream/60"
+                className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 text-[11px] sm:text-xs font-medium text-brand-brown-dark hover:text-brand-terracotta transition-colors rounded-sm border border-brand-terracotta/40 hover:border-brand-terracotta bg-brand-cream/60 shrink-0"
                 title="Direct WhatsApp Inquiry"
+                aria-label="WhatsApp Inquiry"
               >
-                <MessageCircle className="w-4 h-4 text-brand-whatsapp" />
-                <span>WhatsApp</span>
+                <MessageCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-whatsapp" />
+                <span className="hidden sm:inline">WhatsApp</span>
               </a>
-            </div>
 
-            {/* Mobile Order Button and Menu Toggle */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <Link
-                to="/order"
-                className="inline-flex items-center gap-1.5 px-2.5 py-1.5 bg-brand-brown-dark text-brand-cream text-xs font-semibold rounded-sm border border-brand-brown-dark"
-                title="Order"
-                aria-label="Order"
-              >
-                <ShoppingBag className="w-3.5 h-3.5 text-brand-gold" />
-                <span className="text-[11px] uppercase">Order</span>
-              </Link>
-
+              {/* Toggle Menu Button (Visible on mobile & tablet, hidden on desktop lg+) */}
               <button
                 type="button"
-                onClick={() => setMobileMenuOpen(true)}
-                className="p-2 text-brand-brown-dark hover:text-brand-terracotta focus:outline-none"
-                aria-label="Open navigation menu"
+                onClick={() => setMobileMenuOpen((prev) => !prev)}
+                className="p-1.5 sm:p-2 text-brand-brown-dark hover:text-brand-terracotta focus:outline-none rounded-sm transition-colors lg:hidden shrink-0"
+                aria-label={mobileMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
                 aria-expanded={mobileMenuOpen}
-                aria-controls="mobile-navigation-drawer"
+                aria-controls="mobile-navigation-dropdown"
               >
-                <Menu className="w-6 h-6" />
+                {mobileMenuOpen ? (
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                ) : (
+                  <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+                )}
               </button>
             </div>
 
@@ -222,42 +202,52 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
         </div>
       </header>
 
-      {/* Mobile Drawer — Slides in from the LEFT */}
+      {/* Mobile / Tablet Dropdown Menu — Compact square-like panel dropping down from navbar */}
       {drawerMounted && (
-        <div
-          className={`fixed inset-0 z-[60] lg:hidden bg-brand-brown-dark/80 backdrop-blur-sm transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100' : 'opacity-0'
-            }`}
-          onClick={closeMobileMenu}
-          aria-hidden={!mobileMenuOpen}
-        >
+        <div className="lg:hidden">
+          {/* Backdrop overlay */}
           <div
-            id="mobile-navigation-drawer"
+            className={`fixed inset-0 z-40 bg-brand-brown-dark/35 backdrop-blur-xs transition-opacity duration-300 ${
+              mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+            }`}
+            onClick={closeMobileMenu}
+            aria-hidden="true"
+          />
+
+          {/* Square-like Glassy Dropdown Card */}
+          <div
+            id="mobile-navigation-dropdown"
             role="dialog"
             aria-modal="true"
-            aria-label="Mobile navigation"
-            inert={!mobileMenuOpen}
-            className={`absolute inset-y-0 left-0 w-[82%] max-w-xs bg-brand-cream shadow-2xl p-5 sm:p-6 flex flex-col justify-between overflow-y-auto relative transition-transform duration-300 ease-in-out ${mobileMenuOpen
-              ? 'translate-x-0'
-              : '-translate-x-full'
+            aria-label="Navigation menu"
+            className={`fixed z-50 transition-all duration-300 ease-out 
+              top-[64px] sm:top-[72px] 
+              left-3 right-3 sm:left-auto sm:right-6 sm:w-88 
+              max-w-md mx-auto sm:mx-0
+              bg-brand-cream/92 backdrop-blur-2xl 
+              border border-brand-brown-ink/15 shadow-2xl rounded-2xl 
+              p-5 sm:p-6 overflow-hidden 
+              ${
+                mobileMenuOpen
+                  ? 'opacity-100 translate-y-0 scale-100 pointer-events-auto'
+                  : 'opacity-0 -translate-y-4 scale-95 pointer-events-none'
               }`}
             onClick={(event) => event.stopPropagation()}
           >
-            {/* African Pattern */}
+            {/* African Diamond Motif Pattern */}
             <DiamondMotifPattern
               className="text-brand-terracotta absolute inset-0 pointer-events-none"
-              opacity={0.08}
+              opacity={0.06}
             />
 
-            <div className="relative z-10 space-y-6 pt-1">
-
-              {/* Drawer Header and Close Button */}
-              <div className="flex items-start justify-between gap-3 border-b border-brand-brown-ink/10 pb-4">
+            <div className="relative z-10 space-y-4">
+              {/* Header inside dropdown */}
+              <div className="flex items-center justify-between border-b border-brand-brown-ink/10 pb-3">
                 <div className="min-w-0">
-                  <div className="font-display font-extrabold text-lg sm:text-xl text-brand-brown-dark">
+                  <div className="font-display font-extrabold text-base sm:text-lg text-brand-brown-dark truncate">
                     {SITE_CONTENT.brand.name}
                   </div>
-
-                  <div className="font-serif italic text-sm text-brand-terracotta mt-1">
+                  <div className="font-serif italic text-xs text-brand-terracotta truncate">
                     {SITE_CONTENT.brand.subtitle}
                   </div>
                 </div>
@@ -265,18 +255,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                 <button
                   type="button"
                   onClick={closeMobileMenu}
-                  className="shrink-0 p-2 -mr-2 -mt-1 rounded-sm text-brand-brown-dark hover:text-brand-terracotta hover:bg-brand-terracotta/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-terracotta"
+                  className="shrink-0 p-1.5 rounded-full text-brand-brown-dark hover:text-brand-terracotta hover:bg-brand-terracotta/10 transition-colors focus:outline-none"
                   aria-label="Close navigation menu"
-                  autoFocus
                 >
-                  <X className="w-6 h-6" />
+                  <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Mobile Navigation Links */}
+              {/* Navigation Links */}
               <nav
                 aria-label="Mobile navigation"
-                className="flex flex-col space-y-3"
+                className="flex flex-col space-y-1"
               >
                 {navLinks.map((link) => (
                   <Link
@@ -284,18 +273,19 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
                     to={link.path}
                     onClick={closeMobileMenu}
                     aria-current={isActive(link.path) ? 'page' : undefined}
-                    className={`text-left text-base sm:text-lg font-display font-semibold transition-colors py-2 flex items-center justify-between gap-3 border-b border-brand-brown-ink/5 ${isActive(link.path)
-                      ? 'text-brand-terracotta'
-                      : 'text-brand-brown-dark hover:text-brand-terracotta'
-                      }`}
+                    className={`text-left text-sm sm:text-base font-display font-semibold transition-all py-2.5 px-3 rounded-lg flex items-center justify-between group ${
+                      isActive(link.path)
+                        ? 'text-brand-terracotta bg-brand-terracotta/10'
+                        : 'text-brand-brown-dark hover:text-brand-terracotta hover:bg-brand-cream-muted/70'
+                    }`}
                   >
                     <span>{link.label}</span>
-
                     <ArrowUpRight
-                      className={`w-4 h-4 shrink-0 transition-transform duration-200 ${isActive(link.path)
-                        ? 'text-brand-terracotta'
-                        : 'text-brand-terracotta/60'
-                        }`}
+                      className={`w-4 h-4 shrink-0 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${
+                        isActive(link.path)
+                          ? 'text-brand-terracotta'
+                          : 'text-brand-terracotta/60 group-hover:text-brand-terracotta'
+                      }`}
                     />
                   </Link>
                 ))}
@@ -303,38 +293,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigate }) => {
 
               <AfricanPatternBorderRibbon
                 color="#D95A2B"
-                className="opacity-70 my-4"
+                className="opacity-70 my-2"
               />
 
-              {/* Drawer Action Buttons */}
-              <div className="space-y-3 pt-2">
-                <Link
-                  to="/order"
-                  onClick={closeMobileMenu}
-                  className="w-full flex items-center justify-center gap-2 py-3 bg-brand-brown-dark text-brand-cream font-semibold text-xs tracking-wider uppercase rounded-sm shadow-xs hover:bg-brand-terracotta transition-colors"
-                >
-                  <ShoppingBag className="w-4 h-4 text-brand-gold" />
-                  <span>Place An Order</span>
-                </Link>
-
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={closeMobileMenu}
-                  className="w-full flex items-center justify-center gap-2 py-3 border border-brand-terracotta/50 bg-brand-cream/80 text-brand-brown-dark font-semibold text-xs tracking-wider uppercase rounded-sm hover:bg-brand-terracotta/10 transition-colors"
-                >
-                  <MessageCircle className="w-4 h-4 text-brand-whatsapp" />
-                  <span>WhatsApp Chat</span>
-                </a>
+              {/* Footer Note */}
+              <div className="text-center text-[10px] text-brand-brown/50 font-mono tracking-wider pt-1">
+                HANDMADE WITH PASSION &amp; AFRICAN HERITAGE
               </div>
             </div>
-
-            {/* Drawer Footer */}
-            <div className="relative z-10 pt-8 mt-6 text-center text-[10px] sm:text-xs text-brand-brown/50 font-mono">
-              HANDMADE WITH PASSION &amp; AFRICAN HERITAGE
-            </div>
-
           </div>
         </div>
       )}

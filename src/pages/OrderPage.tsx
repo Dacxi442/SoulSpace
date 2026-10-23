@@ -30,6 +30,9 @@ export default function OrderPage() {
 
   // Selected product (either passed from catalog or selected directly on this page)
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(initialProduct);
+  const [selectedSize, setSelectedSize] = useState<string>(
+    initialProduct?.size || (initialProduct?.sizes && initialProduct.sizes[0]) || ''
+  );
 
   // Direct / Custom Order Form states (when ordering without catalog or for custom designs)
   const [orderType, setOrderType] = useState<'catalog' | 'custom'>(
@@ -45,12 +48,14 @@ export default function OrderPage() {
   // Generate dynamic order message based on mode
   const getOrderMessage = () => {
     if (orderType === 'catalog' && selectedProduct) {
+      const sizeDetail = selectedSize || selectedProduct.size;
       return (
         `Hello Soul Space Creations,\n\n` +
         `I would like to order this piece from your collection:\n\n` +
         `• Product: ${selectedProduct.name}\n` +
         `• Category: ${selectedProduct.category}\n` +
         `• Price: ${selectedProduct.price || 'Bespoke / Inquire'}\n` +
+        (sizeDetail ? `• Size / Option: ${sizeDetail}\n` : '') +
         (customerName ? `• Customer Name: ${customerName}\n` : '') +
         (customRequirements ? `• Additional Notes: ${customRequirements}\n` : '') +
         `\nPlease confirm availability and payment/delivery details. Thank you!`
@@ -135,16 +140,9 @@ export default function OrderPage() {
 
         {/* Page Header */}
         <div className="mb-4">
-          <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-brand-terracotta uppercase mb-1.5">
-            <span className="w-6 h-[1.5px] bg-brand-terracotta" />
-            <span>Artisanal Order Request</span>
-          </div>
-          <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-brand-brown-dark tracking-tight">
+          <h1 className="font-sans font-extrabold text-3xl sm:text-4xl text-brand-brown-dark tracking-tight">
             Place Your Order
           </h1>
-          <p className="mt-2 text-sm text-brand-brown/70 max-w-2xl">
-            Order a specific silhouette from our collection or initiate a direct bespoke request with the artisan maker.
-          </p>
         </div>
 
         {/* Prominent African Pattern Ribbon Divider */}
@@ -255,6 +253,35 @@ export default function OrderPage() {
                         </div>
                       </div> */}
 
+                      {/* Size Options Selector */}
+                      {selectedProduct.sizes && selectedProduct.sizes.length > 0 && (
+                        <div className="pt-2">
+                          <label className="block text-[11px] font-mono uppercase text-brand-brown/70 mb-1.5 flex items-center gap-1.5">
+                            <Ruler className="w-3.5 h-3.5 text-brand-terracotta" />
+                            <span>Select Size / Option:</span>
+                          </label>
+                          <div className="flex flex-wrap gap-2">
+                            {selectedProduct.sizes.map((s) => {
+                              const isSelected = (selectedSize || selectedProduct.size) === s;
+                              return (
+                                <button
+                                  key={s}
+                                  type="button"
+                                  onClick={() => setSelectedSize(s)}
+                                  className={`px-3 py-1.5 rounded-sm text-xs font-medium border transition-all ${
+                                    isSelected
+                                      ? 'bg-brand-terracotta text-brand-cream border-brand-terracotta font-semibold shadow-sm'
+                                      : 'bg-brand-cream text-brand-brown-dark border-brand-brown-ink/20 hover:border-brand-terracotta/50'
+                                  }`}
+                                >
+                                  {s}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      )}
+
                       {/* Switch silhouette dropdown */}
                       <div className="pt-2">
                         <label className="block text-[11px] font-mono uppercase text-brand-brown/60 mb-1">
@@ -264,7 +291,10 @@ export default function OrderPage() {
                           value={selectedProduct.id}
                           onChange={(e) => {
                             const found = PRODUCTS.find((p) => p.id === e.target.value);
-                            if (found) setSelectedProduct(found);
+                            if (found) {
+                              setSelectedProduct(found);
+                              setSelectedSize(found.size || (found.sizes && found.sizes[0]) || '');
+                            }
                           }}
                           className="w-full px-3 py-2 bg-brand-cream border border-brand-brown-ink/20 rounded-sm text-xs text-brand-brown-dark focus:outline-none focus:border-brand-terracotta"
                         >
@@ -437,42 +467,33 @@ export default function OrderPage() {
                 {/* Option A: WhatsApp (compact button) */}
                 <button
                   onClick={handleWhatsApp}
-                  className="w-full py-2.5 px-4 bg-brand-whatsapp text-brand-cream rounded-sm hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-between text-xs font-semibold shadow-xs group"
+                  className="w-[80%] py-2.5 px-4 bg-brand-whatsapp text-brand-cream rounded-sm hover:brightness-105 active:scale-[0.99] transition-all flex items-center justify-between text-xs font-semibold shadow-xs group"
                 >
                   <span className="flex items-center gap-2">
                     <MessageCircle className="w-4 h-4 shrink-0" />
                     <span>Order via WhatsApp</span>
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider opacity-90 group-hover:translate-x-0.5 transition-transform">
-                    Chat Now →
                   </span>
                 </button>
 
                 {/* Option B: SMS (compact button) */}
                 <button
                   onClick={handleSMS}
-                  className="w-full py-2.5 px-4 bg-brand-terracotta text-brand-cream rounded-sm hover:bg-brand-brown-dark active:scale-[0.99] transition-all flex items-center justify-between text-xs font-semibold shadow-xs group"
+                  className="w-[80%] py-2.5 px-4 bg-brand-terracotta text-brand-cream rounded-sm hover:bg-brand-brown-dark active:scale-[0.99] transition-all flex items-center justify-between text-xs font-semibold shadow-xs group"
                 >
                   <span className="flex items-center gap-2">
                     <Smartphone className="w-4 h-4 shrink-0" />
                     <span>Order via SMS</span>
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider opacity-90 group-hover:translate-x-0.5 transition-transform">
-                    Send Text →
                   </span>
                 </button>
 
                 {/* Option C: Email (compact button) */}
                 <button
                   onClick={handleEmail}
-                  className="w-full py-2.5 px-4 bg-brand-brown-dark text-brand-cream rounded-sm hover:bg-brand-terracotta active:scale-[0.99] transition-all flex items-center justify-between text-xs font-semibold shadow-xs group"
+                  className="w-[80%] py-2.5 px-4 bg-brand-brown-dark text-brand-cream rounded-sm hover:bg-brand-terracotta active:scale-[0.99] transition-all flex items-center justify-between text-xs font-semibold shadow-xs group"
                 >
                   <span className="flex items-center gap-2">
                     <Mail className="w-4 h-4 shrink-0" />
                     <span>Order via Email</span>
-                  </span>
-                  <span className="text-[10px] font-mono uppercase tracking-wider opacity-90 group-hover:translate-x-0.5 transition-transform">
-                    Send Mail →
                   </span>
                 </button>
               </div>
@@ -481,22 +502,6 @@ export default function OrderPage() {
               <p className="text-[11px] text-brand-brown/60 leading-relaxed border-t border-brand-brown-ink/10 pt-3">
                 Selecting an option opens your chosen app with the order details pre-filled. You can review and edit before sending.
               </p>
-            </div>
-
-            {/* Quick Guarantees */}
-            <div className="p-4 rounded-md bg-brand-cream border border-brand-brown-ink/10 space-y-2 text-xs text-brand-brown/80">
-              <div className="flex items-center gap-2">
-                <Check className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
-                <span>Handcrafted with full-grain leather & African textiles</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
-                <span>Direct artisan communication for customizations</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Check className="w-3.5 h-3.5 text-brand-terracotta shrink-0" />
-                <span>Insured worldwide shipping upon completion</span>
-              </div>
             </div>
 
           </div>

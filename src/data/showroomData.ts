@@ -30,7 +30,7 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     bg: bgBrown,
     hotspotX: 0.68,
     hotspotY: 0.20,
-    href: '/collection',
+    href: '/categories',
   },
   {
     id: 'mens-bags',
@@ -40,7 +40,7 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     bg: bgCream,
     hotspotX: 0.30,
     hotspotY: 0.18,
-    href: '/collection',
+    href: '/categories',
   },
   {
     id: 'travel-bags',
@@ -50,7 +50,7 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     bg: bgMauve,
     hotspotX: 0.55,
     hotspotY: 0.25,
-    href: '/collection',
+    href: '/categories',
   },
   {
     id: 'handbags',
@@ -60,7 +60,7 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     bg: bgPurple,
     hotspotX: 0.62,
     hotspotY: 0.22,
-    href: '/collection',
+    href: '/categories',
   },
   {
     id: 'thrift-clothing',
@@ -70,6 +70,6 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     bg: bgBrown,
     hotspotX: 0.38,
     hotspotY: 0.20,
-    href: '/collection',
+    href: '/categories',
   },
 ];

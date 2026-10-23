@@ -3,7 +3,7 @@ import { Eye, Sparkles, Search, SlidersHorizontal, LayoutGrid, Columns2, ArrowUp
 import { Product, CategoryFilter } from '../types';
 import { PRODUCTS, CATEGORIES_LIST } from '../data/bagsData';
 import { SITE_CONTENT } from '../data/siteContent';
-import { DiamondMotifPattern, AfricanPatternBorderRibbon } from './AfricanPatterns';
+import { DiamondMotifPattern } from './AfricanPatterns';
 
 interface CatalogueProps {
   activeCategory: CategoryFilter;
@@ -27,7 +27,8 @@ export const Catalogue: React.FC<CatalogueProps> = ({
       searchQuery === '' ||
       product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       product.subtitle.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.materials.toLowerCase().includes(searchQuery.toLowerCase());
+      product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (Boolean(product.materials) && product.materials!.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesCategory && matchesSearch;
   });
 
@@ -68,8 +69,8 @@ export const Catalogue: React.FC<CatalogueProps> = ({
               <button
                 onClick={() => setLayoutMode('editorial')}
                 className={`p-1.5 rounded-sm text-xs flex items-center gap-1 transition-colors ${layoutMode === 'editorial'
-                    ? 'bg-brand-brown-dark text-brand-cream'
-                    : 'text-brand-brown/60 hover:text-brand-brown-dark'
+                  ? 'bg-brand-brown-dark text-brand-cream'
+                  : 'text-brand-brown/60 hover:text-brand-brown-dark'
                   }`}
                 title="Editorial Asymmetric Layout"
               >
@@ -79,8 +80,8 @@ export const Catalogue: React.FC<CatalogueProps> = ({
               <button
                 onClick={() => setLayoutMode('grid')}
                 className={`p-1.5 rounded-sm text-xs flex items-center gap-1 transition-colors ${layoutMode === 'grid'
-                    ? 'bg-brand-brown-dark text-brand-cream'
-                    : 'text-brand-brown/60 hover:text-brand-brown-dark'
+                  ? 'bg-brand-brown-dark text-brand-cream'
+                  : 'text-brand-brown/60 hover:text-brand-brown-dark'
                   }`}
                 title="Classic Fashion Grid"
               >
@@ -98,8 +99,8 @@ export const Catalogue: React.FC<CatalogueProps> = ({
               key={cat}
               onClick={() => onCategoryChange(cat)}
               className={`px-4 py-2 rounded-sm text-xs font-semibold tracking-wider whitespace-nowrap uppercase transition-all duration-200 border ${activeCategory === cat
-                  ? 'bg-brand-brown-dark text-brand-cream border-brand-brown-dark shadow-sm'
-                  : 'bg-brand-cream-muted/70 text-brand-brown-ink/70 border-brand-brown-ink/15 hover:border-brand-terracotta hover:text-brand-terracotta'
+                ? 'bg-brand-brown-dark text-brand-cream border-brand-brown-dark shadow-sm'
+                : 'bg-brand-cream-muted/70 text-brand-brown-ink/70 border-brand-brown-ink/15 hover:border-brand-terracotta hover:text-brand-terracotta'
                 }`}
             >
               {cat}
@@ -203,7 +204,7 @@ export const Catalogue: React.FC<CatalogueProps> = ({
                     {/* Materials & Origin Stamp */}
                     <div className="pt-3 border-t border-brand-brown-ink/10 flex flex-wrap items-center justify-between gap-2 text-xs">
                       <div className="text-brand-brown/60 font-mono text-[11px] truncate max-w-xs">
-                        {bag.materials}
+                        {bag.materials || bag.category}
                       </div>
                       <button
                         onClick={() => onSelectProduct(bag)}
