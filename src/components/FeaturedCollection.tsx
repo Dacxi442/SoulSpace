@@ -69,23 +69,23 @@ export const FeaturedCollection: React.FC<FeaturedCollectionProps> = ({
                 <div>
                   <div className="flex items-baseline justify-between">
                     <h3
-                      className="font-display font-bold text-base sm:text-lg text-brand-brown-dark"
+                      className="font-sans font-bold text-base sm:text-lg text-brand-brown-dark"
                     >
                       {bag.name}
                     </h3>
                     {bag.price && (
-                      <span className="font-display font-semibold text-sm sm:text-base text-brand-brown-dark shrink-0 ml-2">
+                      <span className="font-serif font-semibold text-sm sm:text-base text-brand-brown-dark shrink-0 ml-2">
                         {bag.price}
                       </span>
                     )}
                   </div>
-                  <p className="text-xs text-brand-brown-ink/80 mt-2 line-clamp-2 leading-relaxed">
+                  {/* <p className="text-xs text-brand-brown-ink/80 mt-2 line-clamp-2 leading-relaxed">
                     {bag.description}
-                  </p>
+                  </p> */}
                 </div>
 
                 {/* Action Buttons */}
-                <div className="pt-2 flex items-center gap-2">
+                {/* <div className="pt-2 flex items-center gap-2">
                   <button
                     onClick={onViewGallery}
                     className="w-full py-2 px-3 bg-brand-brown-dark text-brand-cream text-[10px] sm:text-xs font-semibold uppercase tracking-wider rounded-sm hover:bg-brand-terracotta transition-colors flex items-center justify-center gap-1.5"
@@ -93,7 +93,7 @@ export const FeaturedCollection: React.FC<FeaturedCollectionProps> = ({
                     <span>View in Catalogue</span>
                     <ArrowUpRight className="w-3 h-3" />
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
           ))}

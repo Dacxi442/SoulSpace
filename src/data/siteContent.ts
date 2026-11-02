@@ -28,8 +28,8 @@ export const SITE_CONTENT = {
   },
   footer: {
     tagline: "Crafting soulful bags, one stitch at a time!",
-    description: "Soul Space Creations unites full-grain, vegetable-tanned leather with handwoven African geometric textiles. Hand-stitched with passion, designed around you.",
-    atelierLocation: "Nairobi, Kenya • Handcrafted Atelier",
+    description: "Soul Space Creations unites quality bags and thrifts Hand-stitched with passion, designed around your needs.",
+    atelierLocation: "Nairobi, Kenya • Soul Space Creations",
     copyright: `© ${new Date().getFullYear()} Soul Space Creations`,
     credit: "Site by Dacxi Technologies",
     creditLink: "https://porrtfolio-rose.vercel.app/"
@@ -38,10 +38,10 @@ export const SITE_CONTENT = {
     sectionTitle: "Connect with Soul Space",
     sectionSubtitle: "Speak directly with the designer.",
     socialTitle: "Reach Out via Our Social Channels",
-    whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "0000000000",
+    whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "0182450190",
     whatsappMessage: "Hello Soul Space Creations, I am interested in your bags",
-    phoneNumber: import.meta.env.VITE_PHONE_NUMBER || "0000000000",
-    email: import.meta.env.VITE_EMAIL_ADDRESS || "soulspace@ssbagscollection.com",
+    phoneNumber: import.meta.env.VITE_PHONE_NUMBER || "0182450190",
+    email: import.meta.env.VITE_EMAIL_ADDRESS || "sandsbagsandthrifts@gmail.com",
     instagram: "https://instagram.com",
     tiktok: "https://tiktok.com"
   }

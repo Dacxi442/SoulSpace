@@ -93,7 +93,7 @@ export const Footer: React.FC<FooterProps> = () => {
                     to="/order"
                     className="hover:text-brand-gold transition-colors"
                   >
-                    Order Guidelines
+                    Order Now
                   </Link>
                 </li>
                 <li>
@@ -115,7 +115,7 @@ export const Footer: React.FC<FooterProps> = () => {
                     rel="noopener noreferrer"
                     className="hover:text-brand-gold transition-colors inline-flex items-center gap-1"
                   >
-                    <span>Artisan WhatsApp</span>
+                    <span>WhatsApp</span>
                   </a>
                 </li>
               </ul>

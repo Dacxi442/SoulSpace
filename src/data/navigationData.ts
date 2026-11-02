@@ -12,8 +12,8 @@ export const NAV_LINKS: NavLinkItem[] = [
 export const FOOTER_NAV_LINKS: NavLinkItem[] = [
   { label: 'Home', path: '/' },
   { label: 'Shop All Bags', path: '/categories' },
-  { label: 'Order Bespoke', path: '/order' },
+  { label: 'Order Now', path: '/order' },
   { label: 'About Us', path: '/aboutus' },
-  { label: 'Contact & Atelier', path: '/contact' },
+  { label: 'Contact Us', path: '/contact' },
 ];
 

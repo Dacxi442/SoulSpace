@@ -350,19 +350,19 @@ export const Hero: React.FC<HeroProps> = ({
           }}
         >
           {/* Primary & Secondary CTA Buttons Positioned on the Video */}
-          <div className="flex w-[90%] flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:gap-3.5">
+          {/* <div className="flex w-[90%] flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row sm:gap-3.5">
             {/* Primary CTA: Explore Collection */}
-            <button
-              id="btn-hero-explore"
-              type="button"
-              onClick={onExplore}
-              className="group inline-flex w-[85%] max-w-[280px] sm:max-w-none items-center justify-center gap-3 px-6 py-4 text-sm sm:w-auto sm:px-7 sm:py-4 sm:text-base 2xl:px-9 2xl:py-5 2xl:text-lg bg-brand-gold hover:bg-brand-gold-light text-brand-brown-near-black font-extrabold tracking-[0.15em] uppercase rounded-md border border-brand-gold-light shadow-[0_10px_30px_rgba(212,175,55,0.35)] hover:shadow-[0_14px_36px_rgba(212,175,55,0.55)] transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cream"
-            >
-              <span>{SITE_CONTENT.hero.primaryCta}</span>
-              <ArrowRight className="w-5 h-5 text-brand-brown-near-black group-hover:translate-x-1 transition-transform duration-200" />
-            </button>
+          {/* <button
+                id="btn-hero-explore"
+                type="button"
+                onClick={onExplore}
+                className="group inline-flex w-[85%] max-w-[280px] sm:max-w-none items-center justify-center gap-3 px-6 py-4 text-sm sm:w-auto sm:px-7 sm:py-4 sm:text-base 2xl:px-9 2xl:py-5 2xl:text-lg bg-brand-gold hover:bg-brand-gold-light text-brand-brown-near-black font-extrabold tracking-[0.15em] uppercase rounded-md border border-brand-gold-light shadow-[0_10px_30px_rgba(212,175,55,0.35)] hover:shadow-[0_14px_36px_rgba(212,175,55,0.55)] transition-all duration-200 cursor-pointer whitespace-nowrap shrink-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-cream"
+              >
+                <span>{SITE_CONTENT.hero.primaryCta}</span>
+                <ArrowRight className="w-5 h-5 text-brand-brown-near-black group-hover:translate-x-1 transition-transform duration-200" />
+              </button> */}
 
-            {/* Secondary CTA: View Gallery
+          {/* Secondary CTA: View Gallery
             <button
               id="btn-hero-gallery"
               type="button"
@@ -372,7 +372,7 @@ export const Hero: React.FC<HeroProps> = ({
               <Compass className="w-5 h-5 text-brand-gold group-hover:rotate-12 transition-transform duration-200" />
               <span>{SITE_CONTENT.hero.secondaryCta}</span>
             </button> */}
-          </div>
+          {/* </div> */}
 
         </div>
       </div>
