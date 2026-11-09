@@ -165,7 +165,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   </a>
 
                   {/* TikTok */}
-                  <a
+                  {/* <a
                     href={SITE_CONTENT.contact.tiktok}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -176,7 +176,7 @@ export const Footer: React.FC<FooterProps> = () => {
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.84a4.84 4.84 0 01-1-.15z" />
                     </svg>
-                  </a>
+                  </a> */}
 
                   {/* WhatsApp */}
                   <a
@@ -191,7 +191,7 @@ export const Footer: React.FC<FooterProps> = () => {
                   </a>
 
                   {/* Facebook */}
-                  <a
+                  {/* <a
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -202,10 +202,10 @@ export const Footer: React.FC<FooterProps> = () => {
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" />
                     </svg>
-                  </a>
+                  </a> */}
 
                   {/* Pinterest */}
-                  <a
+                  {/* <a
                     href="https://pinterest.com"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -216,7 +216,7 @@ export const Footer: React.FC<FooterProps> = () => {
                     <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M12 0a12 12 0 0 0-4.37 23.18c-.06-.99-.1-2.52.02-3.61l.85-3.62s-.22-.43-.22-1.07c0-1 .58-1.75 1.3-1.75.61 0 .91.46.91 1.02 0 .62-.39 1.54-.6 2.4-.17.72.36 1.3 1.07 1.3 1.28 0 2.27-1.35 2.27-3.3 0-1.73-1.24-2.93-3.02-2.93-2.06 0-3.26 1.54-3.26 3.14 0 .62.24 1.29.54 1.65.06.07.07.13.05.2l-.2 1.03c-.04.14-.13.17-.29.1-1.08-.5-1.75-2.07-1.75-3.34 0-2.72 1.98-5.21 5.7-5.21 2.99 0 5.31 2.13 5.31 4.98 0 2.97-1.87 5.36-4.47 5.36-.87 0-1.7-.45-1.98-.99l-.54 2.06c-.2 1.02-.74 2.3-1.1 3.12A12 12 0 1 0 12 0z" />
                     </svg>
-                  </a>
+                  </a> */}
                 </div>
               </div>
 

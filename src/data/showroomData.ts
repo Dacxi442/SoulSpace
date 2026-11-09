@@ -7,9 +7,11 @@ import bgMauve from '../assets/background/Mauve_fabric_product_showcase_ba…_2K
 import bgPurple from '../assets/background/Purple_fabric_curtain.jpg';
 
 // Transparent Background-Removed Bag Cutouts for the Floating Stage
-import bagCutout1 from '../assets/background/bag no background/download-Photoroom.png';
-import bagCutout2 from '../assets/background/bag no background/download (1)-Photoroom.png';
-import bagCutout3 from '../assets/background/bag no background/bag1 (15)-Photoroom.png';
+import bagCutout1 from '../assets/bags/cute leather bag 1.jpeg';
+import travel from '../assets/bags/travel bag (2).jpeg';
+import bagCutout2 from '../assets/bags/mustard.jpeg';
+import bagCutout4 from '../assets/bags/leather purse cream.jpeg';
+import bagCutout3 from '../assets/background/bag no background/download-Photoroom.png';
 
 export const SHOWROOM_TIMINGS = {
   slide: 1000,      // bag slides in (ms)
@@ -46,7 +48,7 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     id: 'travel-bags',
     label: 'Travel Bags',
     tagline: 'Pack smart, travel in style.',
-    img: bagCutout3,
+    img: travel,
     bg: bgMauve,
     hotspotX: 0.55,
     hotspotY: 0.25,
@@ -54,9 +56,9 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
   },
   {
     id: 'handbags',
-    label: 'Handbags',
+    label: 'Fashion Accesories',
     tagline: 'Elegant companions for every step you take.',
-    img: bagCutout1,
+    img: bagCutout4,
     bg: bgPurple,
     hotspotX: 0.62,
     hotspotY: 0.22,
@@ -66,7 +68,7 @@ export const SHOWROOM_CATEGORIES: ShowroomCategory[] = [
     id: 'thrift-clothing',
     label: 'Thrift Clothing',
     tagline: 'Pre-loved fashion — your sustainable style choice.',
-    img: bagCutout2,
+    img: bagCutout3,
     bg: bgBrown,
     hotspotX: 0.38,
     hotspotY: 0.20,

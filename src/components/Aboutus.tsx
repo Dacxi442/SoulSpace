@@ -434,7 +434,7 @@ export const AboutUS: React.FC<AboutUsProps> = ({ onOpenBespoke }) => {
             {/* RIGHT: COMMUNITY IMAGE */}
             <article className="group relative min-h-[390px] overflow-hidden rounded-[22px] bg-neutral-100 sm:min-h-[450px] lg:min-h-[470px]">
               <img
-                src={ABOUT_US_DATA.images.workshop1}
+                src={ABOUT_US_DATA.images.designer}
                 alt="Community learning and creative skills development"
                 className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
               />

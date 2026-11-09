@@ -23,7 +23,7 @@ export const SITE_CONTENT = {
   },
   catalogue: {
     title: "The Collection",
-    badge: "Full Haute Soul Space Catalogue",
+    badge: "Full Soul Space Catalogue",
     searchPlaceholder: "Search silhouettes, materials...",
   },
   footer: {
@@ -39,10 +39,10 @@ export const SITE_CONTENT = {
     sectionSubtitle: "Speak directly with the designer.",
     socialTitle: "Reach Out via Our Social Channels",
     whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "0182450190",
-    whatsappMessage: "Hello Soul Space Creations, I am interested in your bags",
+    whatsappMessage: "Hello Soul Space Creations, I am interested to know more about bags and thrifts.",
     phoneNumber: import.meta.env.VITE_PHONE_NUMBER || "0182450190",
     email: import.meta.env.VITE_EMAIL_ADDRESS || "sandsbagsandthrifts@gmail.com",
-    instagram: "https://instagram.com",
+    instagram: "https://instagram.com/bagsandthrifts",
     tiktok: "https://tiktok.com"
   }
 };

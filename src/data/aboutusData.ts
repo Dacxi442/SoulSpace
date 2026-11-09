@@ -3,6 +3,7 @@ import workshopImg1 from '../assets/bags/cute aesthetic leather bag (1).jpeg';
 
 import workshopImg2 from '../assets/bags/cute leather bag maroon.jpeg';
 import workshopImg3 from '../assets/bags/cute leather bag maroon.jpeg';
+import designer from '../assets/bags/bree.jpg'
 
 export const ABOUT_US_DATA = {
   sectionTag: 'Beyond Fashion',
@@ -24,6 +25,7 @@ export const ABOUT_US_DATA = {
 
   images: {
     hero: heroImg,
+    designer : designer,
     workshop1: workshopImg1,
     workshop2: workshopImg2,
     workshop3: workshopImg3,
