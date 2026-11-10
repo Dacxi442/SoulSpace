@@ -1,9 +1,9 @@
-import heroImg from '../assets/images/ss_craft_artisan_1790067482692.jpg';
-import workshopImg1 from '../assets/bags/cute aesthetic leather bag (1).jpeg';
+import heroImg from '../assets/images/ss_craft_artisan_1790067482692.webp';
+import workshopImg1 from '../assets/bags/cute aesthetic leather bag (1).webp';
 
-import workshopImg2 from '../assets/bags/cute leather bag maroon.jpeg';
-import workshopImg3 from '../assets/bags/cute leather bag maroon.jpeg';
-import designer from '../assets/bags/bree.jpg'
+import workshopImg2 from '../assets/bags/cute leather bag maroon.webp';
+import workshopImg3 from '../assets/bags/cute leather bag maroon.webp';
+import designer from '../assets/bags/bree.webp'
 
 export const ABOUT_US_DATA = {
   sectionTag: 'Beyond Fashion',

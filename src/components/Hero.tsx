@@ -6,11 +6,54 @@ import {
 } from './AfricanPatterns';
 import { PRODUCTS } from '../data/bagsData';
 import { Product } from '../types';
-import heroPoster from '../assets/images/user_video_pan_part1_1790889807111.jpg';
+import heroPoster from '../assets/images/user_video_pan_part1_1790889807111.webp';
 import { SITE_CONTENT } from '../data/siteContent';
 
 const H1_TARGET = SITE_CONTENT.hero.title;
 const H2_TARGETS = SITE_CONTENT.hero.subtitles;
+
+// Isolated typewriter text component to prevent Hero-wide re-renders on every character
+const HeroSubtitlesTypewriter: React.FC = () => {
+  const [h2Text, setH2Text] = useState("");
+  const [h2Index, setH2Index] = useState(0);
+  const [typingPhase, setTypingPhase] = useState<'type' | 'pause' | 'delete'>('type');
+
+  useEffect(() => {
+    let timeout: number;
+    const h2Target = H2_TARGETS[h2Index % H2_TARGETS.length];
+
+    if (typingPhase === 'type') {
+      if (h2Text.length < h2Target.length) {
+        timeout = window.setTimeout(() => {
+          setH2Text(h2Target.substring(0, h2Text.length + 1));
+        }, 70);
+      } else {
+        timeout = window.setTimeout(() => setTypingPhase('pause'), 3000);
+      }
+    } else if (typingPhase === 'pause') {
+      setTypingPhase('delete');
+    } else if (typingPhase === 'delete') {
+      if (h2Text.length > 0) {
+        timeout = window.setTimeout(() => {
+          setH2Text(h2Target.substring(0, Math.max(0, h2Text.length - 1)));
+        }, 30);
+      } else {
+        timeout = window.setTimeout(() => {
+          setH2Index(prev => prev + 1);
+          setTypingPhase('type');
+        }, 400);
+      }
+    }
+
+    return () => window.clearTimeout(timeout);
+  }, [h2Text, typingPhase, h2Index]);
+
+  return (
+    <h2 className="block font-serif font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] text-brand-gold-light mt-2 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
+      {h2Text || '\u00A0'}
+    </h2>
+  );
+};
 
 export interface HeroProps {
   onExplore: () => void;
@@ -32,44 +75,6 @@ export const Hero: React.FC<HeroProps> = ({
   const [customVideoUrl, setCustomVideoUrl] = useState<string | null>(null);
   const [isDraggingVideo, setIsDraggingVideo] = useState(false);
   const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  // Typing effect states
-  const [h1Text, setH1Text] = useState("");
-  const [h2Text, setH2Text] = useState("");
-  const [h2Index, setH2Index] = useState(0);
-  const [typingPhase, setTypingPhase] = useState<'type' | 'pause' | 'delete'>('type');
-
-  useEffect(() => {
-    let timeout: number;
-    const h2Target = H2_TARGETS[h2Index % H2_TARGETS.length];
-
-    if (typingPhase === 'type') {
-      if (h1Text.length < H1_TARGET.length || h2Text.length < h2Target.length) {
-        timeout = window.setTimeout(() => {
-          setH1Text(H1_TARGET.substring(0, h1Text.length + 1));
-          setH2Text(h2Target.substring(0, h2Text.length + 1));
-        }, 70); // Slightly faster typing
-      } else {
-        timeout = window.setTimeout(() => setTypingPhase('pause'), 3000);
-      }
-    } else if (typingPhase === 'pause') {
-      setTypingPhase('delete');
-    } else if (typingPhase === 'delete') {
-      if (h1Text.length > 0 || h2Text.length > 0) {
-        timeout = window.setTimeout(() => {
-          setH1Text(H1_TARGET.substring(0, Math.max(0, h1Text.length - 1)));
-          setH2Text(h2Target.substring(0, Math.max(0, h2Text.length - 1)));
-        }, 30); // Faster deletion
-      } else {
-        timeout = window.setTimeout(() => {
-          setH2Index(prev => prev + 1);
-          setTypingPhase('type');
-        }, 400); // Wait before re-typing
-      }
-    }
-
-    return () => window.clearTimeout(timeout);
-  }, [h1Text, h2Text, typingPhase, h2Index]);
 
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -178,7 +183,7 @@ export const Hero: React.FC<HeroProps> = ({
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           className="w-full h-full object-cover object-center transition-transform duration-700 ease-out"
           style={{
             transform: prefersReducedMotion
@@ -280,7 +285,7 @@ export const Hero: React.FC<HeroProps> = ({
           <div className="relative w-full">
             {/* Invisible ghost placeholder to prevent ANY height shifting on small screens */}
             <div className="space-y-4 w-full invisible pointer-events-none select-none" aria-hidden="true">
-              <h1 className="font-sans itallic font-bold text-6xl sm:text-8xl md:text-9xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight leading-[0.94] text-balance">
+              <h1 className="font-script itallic font-bold text-6xl sm:text-8xl md:text-9xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight leading-[0.94] text-balance">
                 {SITE_CONTENT.hero.title}
               </h1>
               <h2 className="block font-sans font-light text-4xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] mt-2 tracking-wide">
@@ -293,9 +298,7 @@ export const Hero: React.FC<HeroProps> = ({
               <h1 className="font-sans italic font-bold text-6xl sm:text-8xl md:text-9xl lg:text-6xl xl:text-7xl 2xl:text-[5.5rem] lg:whitespace-nowrap tracking-tight text-brand-cream leading-[0.94] drop-shadow-[0_6px_28px_rgba(0,0,0,0.85)] text-balance">
                 {SITE_CONTENT.hero.title}
               </h1>
-              <h2 className="block font-serif font-light text-2xl sm:text-4xl md:text-5xl lg:text-[3.35rem] 2xl:text-[4rem] text-brand-gold-light mt-2 tracking-wide drop-shadow-[0_4px_20px_rgba(0,0,0,0.85)]">
-                {h2Text || '\u00A0'}
-              </h2>
+              <HeroSubtitlesTypewriter />
             </div>
           </div>
 

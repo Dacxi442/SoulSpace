@@ -1,5 +1,5 @@
 
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -13,12 +13,11 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 
 import HomePage from './pages/HomePage';
-import ContactPage from './pages/ContactPage';
-import CommunityPage from './pages/AboutusPage';
-import Categoriespage from './pages/categories';
-// import StoryPage from './pages/StoryPage';
-import OrderPage from './pages/OrderPage';
-import NotFoundPage from './pages/NotFoundPage';
+const ContactPage = lazy(() => import('./pages/ContactPage'));
+const CommunityPage = lazy(() => import('./pages/AboutusPage'));
+const Categoriespage = lazy(() => import('./pages/categories'));
+const OrderPage = lazy(() => import('./pages/OrderPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 import { ErrorBoundary } from './components/ErrorBoundary';
 
 import { MessageCircle } from 'lucide-react';
@@ -79,21 +78,23 @@ function AppContent() {
       {/* Shared Navbar */}
       <Navbar onNavigate={handleNavigate} />
 
-      {/* Page Routes wrapped in ErrorBoundary */}
+      {/* Page Routes wrapped in ErrorBoundary and Suspense */}
       <main>
         <ErrorBoundary>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/aboutus" element={<CommunityPage />} />
-            <Route path="/categories" element={<Categoriespage />} />
-            <Route path="/shop" element={<Categoriespage />} />
-            <Route path="/collection" element={<Navigate to="/categories" replace />} />
-            <Route path="/showroom" element={<Navigate to="/#showroom" replace />} />
-            {/* <Route path="/story" element={<StoryPage />} /> */}
-            <Route path="/order" element={<OrderPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
+          <Suspense fallback={<div className="min-h-[60vh] bg-brand-cream" />}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              <Route path="/aboutus" element={<CommunityPage />} />
+              <Route path="/categories" element={<Categoriespage />} />
+              <Route path="/shop" element={<Categoriespage />} />
+              <Route path="/collection" element={<Navigate to="/categories" replace />} />
+              <Route path="/showroom" element={<Navigate to="/#showroom" replace />} />
+              {/* <Route path="/story" element={<StoryPage />} /> */}
+              <Route path="/order" element={<OrderPage />} />
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
         </ErrorBoundary>
       </main>
 

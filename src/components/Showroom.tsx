@@ -97,49 +97,49 @@ export function Showroom(): React.ReactElement {
   }, []);
 
   // ── Connector line ────────────────────────────────────────────────────────
-  useEffect(() => {
-    let raf: number;
-    const loop = () => {
-      if (lineOpen && cardRef.current && stageRef.current) {
-        // Find the hotspot anchor element on the active image card
-        const dot = stageRef.current.querySelector('.showroom-p[data-pos="c"] .showroom-hs-dot') as HTMLElement;
-        if (dot && cardRef.current) {
-          const db = dot.getBoundingClientRect();
-          const cb = cardRef.current.getBoundingClientRect();
-          const hx = db.left + db.width / 2;
-          const hy = db.top + db.height / 2;
+  const updateConnectorLine = useCallback(() => {
+    if (!lineOpen || !cardRef.current || !stageRef.current) return;
+    const dot = stageRef.current.querySelector('.showroom-p[data-pos="c"] .showroom-hs-dot') as HTMLElement;
+    if (dot && cardRef.current) {
+      const db = dot.getBoundingClientRect();
+      const cb = cardRef.current.getBoundingClientRect();
+      const hx = db.left + db.width / 2;
+      const hy = db.top + db.height / 2;
 
-          const vw = window.innerWidth;
-          if (vw > 700) {
-            // Gateway card is fixed on the right half via CSS.
-            // Draw line from dot to the left edge of the gateway card.
-            const ex = cb.left;
-            const ey = cb.top + cb.height / 2;
+      const vw = window.innerWidth;
+      if (vw > 700) {
+        const ex = cb.left;
+        const ey = cb.top + cb.height / 2;
 
-            // Wavy connector line
-            const dx = ex - hx;
-            const dy = ey - hy;
-            const mx = (hx + ex) / 2;
-            const my = (hy + ey) / 2;
-            const amp = Math.min(120, Math.abs(dx) * 0.6); // Wave amplitude
+        const dx = ex - hx;
+        const dy = ey - hy;
+        const mx = (hx + ex) / 2;
+        const my = (hy + ey) / 2;
+        const amp = Math.min(120, Math.abs(dx) * 0.6);
 
-            const d = `M ${hx} ${hy} `
-              + `Q ${hx + dx * 0.25} ${hy - amp}, ${mx} ${my} `
-              + `Q ${ex - dx * 0.25} ${ey + amp}, ${ex} ${ey}`;
+        const d = `M ${hx} ${hy} `
+          + `Q ${hx + dx * 0.25} ${hy - amp}, ${mx} ${my} `
+          + `Q ${ex - dx * 0.25} ${ey + amp}, ${ex} ${ey}`;
 
-            if (linePathRef.current) {
-              linePathRef.current.setAttribute('d', d);
-              const len = Math.ceil(linePathRef.current.getTotalLength()) + 4;
-              linePathRef.current.style.setProperty('--len', len + '');
-            }
-          }
+        if (linePathRef.current) {
+          linePathRef.current.setAttribute('d', d);
+          const len = Math.ceil(linePathRef.current.getTotalLength()) + 4;
+          linePathRef.current.style.setProperty('--len', len + '');
         }
       }
-      raf = requestAnimationFrame(loop);
-    };
-    loop();
-    return () => cancelAnimationFrame(raf);
+    }
   }, [lineOpen]);
+
+  useEffect(() => {
+    if (!lineOpen) return;
+    // Calculate on settle and resize, avoiding infinite RAF thrashing
+    const timer = setTimeout(updateConnectorLine, 50);
+    window.addEventListener('resize', updateConnectorLine);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', updateConnectorLine);
+    };
+  }, [lineOpen, updateConnectorLine]);
 
   // ── Navigation ────────────────────────────────────────────────────────────
   const goAuto = () => {

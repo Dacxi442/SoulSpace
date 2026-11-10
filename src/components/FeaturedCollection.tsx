@@ -47,6 +47,8 @@ export const FeaturedCollection: React.FC<FeaturedCollectionProps> = ({
                 <img
                   src={bag.image}
                   alt={bag.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   referrerPolicy="no-referrer"
                 />

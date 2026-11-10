@@ -1,17 +1,17 @@
 import { ShowroomCategory } from '../types';
 
 // Showroom Stage Background Fabrics
-import bgBrown from '../assets/background/Brown_fabric_curtain_background_2K_20261002161621.jpg';
-import bgCream from '../assets/background/Cream_fabric_curtain_showcase_ba…_2K_20261002160610.jpg';
-import bgMauve from '../assets/background/Mauve_fabric_product_showcase_ba…_2K_20261002160615.jpg';
-import bgPurple from '../assets/background/Purple_fabric_curtain.jpg';
+import bgBrown from '../assets/background/Brown_fabric_curtain_background_2K_20261002161621.webp';
+import bgCream from '../assets/background/Cream_fabric_curtain_showcase_ba…_2K_20261002160610.webp';
+import bgMauve from '../assets/background/Mauve_fabric_product_showcase_ba…_2K_20261002160615.webp';
+import bgPurple from '../assets/background/Purple_fabric_curtain.webp';
 
 // Transparent Background-Removed Bag Cutouts for the Floating Stage
-import bagCutout1 from '../assets/bags/cute leather bag 1.jpeg';
-import travel from '../assets/bags/travel bag (2).jpeg';
-import bagCutout2 from '../assets/bags/mustard.jpeg';
-import bagCutout4 from '../assets/bags/leather purse cream.jpeg';
-import bagCutout3 from '../assets/background/bag no background/download-Photoroom.png';
+import bagCutout1 from '../assets/bags/cute leather bag 1.webp';
+import travel from '../assets/bags/travel bag (2).webp';
+import bagCutout2 from '../assets/bags/mustard.webp';
+import bagCutout4 from '../assets/bags/leather purse cream.webp';
+import bagCutout3 from '../assets/background/bag no background/download-Photoroom.webp';
 
 export const SHOWROOM_TIMINGS = {
   slide: 1000,      // bag slides in (ms)

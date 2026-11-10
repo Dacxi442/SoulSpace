@@ -147,6 +147,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
                       src={currentProduct.image}
                       alt={`${group.name}${hasVariants ? ` - ${currentProduct.colorName || currentProduct.name}` : ''}`}
                       loading="lazy"
+                      decoding="async"
                       className={`h-full w-full object-cover object-center transition-transform duration-700 ${isHovered ? 'scale-[1.04]' : 'scale-100'
                         }`}
                     />

@@ -38,11 +38,11 @@ export const SITE_CONTENT = {
     sectionTitle: "Connect with Soul Space",
     sectionSubtitle: "Speak directly with the designer.",
     socialTitle: "Reach Out via Our Social Channels",
-    whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER || "0182450190",
+    whatsappNumber: import.meta.env.VITE_WHATSAPP_NUMBER,
     whatsappMessage: "Hello Soul Space Creations, I am interested to know more about bags and thrifts.",
-    phoneNumber: import.meta.env.VITE_PHONE_NUMBER || "0182450190",
-    email: import.meta.env.VITE_EMAIL_ADDRESS || "sandsbagsandthrifts@gmail.com",
+    phoneNumber: import.meta.env.VITE_PHONE_NUMBER,
+    email: import.meta.env.VITE_EMAIL_ADDRESS,
     instagram: "https://instagram.com/bagsandthrifts",
-    tiktok: "https://tiktok.com"
+    // tiktok: "https://tiktok.com"
   }
 };

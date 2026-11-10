@@ -513,16 +513,15 @@
 
       // When the window is fully loaded (React + styles ready)
       if (document.readyState === 'complete') {
-        setTimeout(hide, 1200);
+        hide();
       } else {
         window.addEventListener('load', function () {
-          // Allow minimum 1.6s so the mobile visitor clearly sees the luxury entrance
-          setTimeout(hide, 1400);
+          hide();
         });
       }
 
-      // Safety timeout: never block mobile user longer than 3.6s
-      setTimeout(hide, 3600);
+      // Safety fallback: dismiss after at most 2.5s if load event doesn't fire
+      setTimeout(hide, 2500);
     })();
   </script>
   <!-- ===== END LOADER ===== -->
