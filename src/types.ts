@@ -2,7 +2,7 @@ export interface Product {
   id: string;
   name: string;
   subtitle: string;
-  category: 'Women\'s Bags' | 'Men\'s Bags' | 'Custom Bags' | 'New Designs' | 'Fashion / Accessories';
+  category: 'Thrift Clothes' | 'Women\'s Bags' | 'Men\'s Bags' | 'Custom Bags' | 'New Designs' | 'Fashion / Accessories' ;
   price?: string;
   image: string;
   secondaryImage?: string;
@@ -26,7 +26,7 @@ export interface Product {
   sizes?: string[];
 }
 
-export type CategoryFilter = 'All' | 'Women\'s Bags' | 'Men\'s Bags' | 'Custom Bags' | 'New Designs' | 'Fashion / Accessories';
+export type CategoryFilter = 'All' | 'Women\'s Bags' | 'Men\'s Bags' | 'Custom Bags' | 'New Designs' | 'Fashion / Accessories' | 'Thrift Clothes';
 
 export interface CustomBespokeOrder {
   silhouette: string;

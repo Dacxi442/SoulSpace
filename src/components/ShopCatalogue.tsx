@@ -1,16 +1,21 @@
-
 import React, { useState } from 'react';
 import { Eye, Search, X } from 'lucide-react';
 import type { CategoryFilter, Product } from '../types';
-import { PRODUCT_GROUPS, CATEGORIES_LIST } from '../data/bagsData';
+import { SHOP_PRODUCT_GROUPS, SHOP_CATEGORIES_LIST } from '../data/shopData';
 import { DiamondMotifPattern } from './AfricanPatterns';
 
 interface ShopCatalogueProps {
   onSelectProduct: (product: Product) => void;
+  /** Optional: lets the landing cards control the filter. Without them it filters on its own. */
+  activeCategory?: CategoryFilter;
+  onCategoryChange?: (category: CategoryFilter) => void;
 }
 
-export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct }) => {
-  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('All');
+export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct, activeCategory: controlledCategory, onCategoryChange }) => {
+  const [localCategory, setLocalCategory] = useState<CategoryFilter>('All');
+  const activeCategory = controlledCategory ?? localCategory;
+  const setActiveCategory = onCategoryChange ?? setLocalCategory;
+
   const [searchQuery, setSearchQuery] = useState('');
   const [activeVariants, setActiveVariants] = useState<Record<string, number>>({});
   const [hoveredGroup, setHoveredGroup] = useState<string | null>(null);
@@ -20,7 +25,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
   const setVIdx = (groupId: string, idx: number) =>
     setActiveVariants(prev => ({ ...prev, [groupId]: idx }));
 
-  const filteredGroups = PRODUCT_GROUPS.filter(group => {
+  const filteredGroups = SHOP_PRODUCT_GROUPS.filter(group => {
     const matchCat = activeCategory === 'All' || group.category === activeCategory;
     const q = searchQuery.trim().toLowerCase();
 
@@ -38,11 +43,11 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
   });
 
   return (
-    <section className="relative overflow-hidden border-t border-brand-brown-ink/10 bg-brand-cream py-10 sm:py-14 lg:py-16 xl:py-20">
+    <section id="catalogue" className="relative scroll-mt-12 overflow-hidden border-t border-brand-brown-ink/10 bg-brand-cream py-10 sm:py-14 lg:py-16 xl:py-20">
       <DiamondMotifPattern className="text-brand-terracotta absolute inset-0 pointer-events-none" opacity={0.075} />
 
       {/* Responsive sticky filter bar */}
-      <div className="sticky top-[2px] z-10 border-b border-brand-brown-ink/10 bg-brand-cream/95 shadow-sm backdrop-blur-md sm:top-[50pxs]">
+      <div className="sticky top-0.5 z-10 border-b border-brand-brown-ink/10 bg-brand-cream/95 shadow-sm backdrop-blur-md sm:top-[50px]">
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:gap-5 lg:px-8">
 
           {/* Search */}
@@ -51,7 +56,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
 
             <input
               type="text"
-              placeholder="Search bags..."
+              placeholder="Search products..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
               aria-label="Search products"
@@ -62,7 +67,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
               <button
                 type="button"
                 onClick={() => setSearchQuery('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-sm p-1 text-brand-brown/60 transition-colors hover:text-brand-terracotta focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-terracotta"
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-sm p-1 text-brand-brown/60 transition-colors hover:text-brand-terracotta focus-visible:outline-2 focus-visible:outline-brand-terracotta"
                 aria-label="Clear search"
               >
                 <X className="h-4 w-4" />
@@ -76,7 +81,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
             role="group"
             aria-label="Filter products by category"
           >
-            {CATEGORIES_LIST.map(cat => (
+            {SHOP_CATEGORIES_LIST.map(cat => (
               <button
                 key={cat}
                 type="button"
@@ -138,7 +143,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
                 <article key={group.id} className="flex min-w-0 flex-col">
                   {/* Product image */}
                   <div
-                    className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-sm bg-[#EDE5D8]"
+                    className="group relative aspect-3/4 cursor-pointer overflow-hidden rounded-sm bg-[#EDE5D8]"
                     onMouseEnter={() => setHoveredGroup(group.id)}
                     onMouseLeave={() => setHoveredGroup(null)}
                     onClick={() => onSelectProduct(currentProduct)}
@@ -165,7 +170,7 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
                     )}
 
                     {/* Always accessible on touchscreens; hover reveal on desktop */}
-                    <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/35 via-transparent to-transparent p-2 pb-3 opacity-100 transition-opacity duration-300 sm:pb-5 sm:opacity-0 sm:group-hover:opacity-100">
+                    <div className="pointer-events-none absolute inset-0 flex items-end justify-center bg-linear-to-t from-black/35 via-transparent to-transparent p-2 pb-3 opacity-100 transition-opacity duration-300 sm:pb-5 sm:opacity-0 sm:group-hover:opacity-100">
                       <button
                         type="button"
                         onClick={e => {
@@ -206,24 +211,24 @@ export const ShopCatalogue: React.FC<ShopCatalogueProps> = ({ onSelectProduct })
                     <div className="flex items-start justify-between gap-2">
                       <h3
                         onClick={() => onSelectProduct(currentProduct)}
-                        className="min-w-0 cursor-pointer break-words font-display text-[13px] font-semibold leading-snug text-brand-brown-dark transition-colors hover:text-brand-terracotta sm:text-sm lg:text-base"
+                        className="min-w-0 cursor-pointer wrap-break-word font-display text-[13px] font-semibold leading-snug text-brand-brown-dark transition-colors hover:text-brand-terracotta sm:text-sm lg:text-base"
                       >
                         {group.name}
                       </h3>
 
                       <span className="shrink-0 whitespace-nowrap font-display text-[13px] font-bold leading-snug text-brand-brown-dark sm:text-sm lg:text-base">
-                        {currentProduct.price}
+                        {currentProduct.price || 'Inquire'}
                       </span>
                     </div>
 
-                    <p className="mt-1.5 break-words text-xs font-normal leading-relaxed text-brand-brown/75 sm:text-sm">
+                    <p className="mt-1.5 wrap-break-word text-xs font-normal leading-relaxed text-brand-brown/75 sm:text-sm">
                       {hasVariants
                         ? currentProduct.colorName || currentProduct.subtitle
                         : currentProduct.subtitle}
                     </p>
 
                     {activeCategory === 'All' && (
-                      <p className="mt-2 break-words font-mono text-[10px] font-medium uppercase tracking-wider text-brand-brown/65 sm:text-[11px]">
+                      <p className="mt-2 wrap-break-word font-mono text-[10px] font-medium uppercase tracking-wider text-brand-brown/65 sm:text-[11px]">
                         {group.category}
                       </p>
                     )}

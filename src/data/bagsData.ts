@@ -30,6 +30,10 @@ import bag1_1Img from '../assets/bags/bag1 (1).webp';
 import bag1_21Img from '../assets/bags/bag1 (21).webp';
 import bag1_22Img from '../assets/bags/bag1 (22).webp';
 
+
+import thrift1 from '../assets/thrifts/thrift.jpeg';
+
+
 import { Product, CategoryFilter, CategoryCard, ProductGroup } from '../types';
 
 export const CRAFT_IMAGE = artisanCraft;
@@ -624,7 +628,27 @@ export const PRODUCTS: Product[] = [
     groupName: 'Striped Slouch Tote',
     colorHex: '#3A3A3A',
     colorName: 'Charcoal Stripe',
-  }
+  },
+
+  // {
+  //   id: 'thrift1',
+  //   name: 'Striped Slouch Hobo',
+  //   subtitle: 'Pinstriped Draped Canvas Tote',
+  //   category: 'Custom Bags',
+  //   price: 'KSh 800',
+  //   image: thrift1,
+  //   secondaryImage: thrift1,
+  //   description: 'A draped, slouchy casual tote featuring clean white diagonal pinstripes across a dense charcoal cotton canvas weave.',
+  //   size: 'Large',
+  //   sizes: ['Medium', 'Large'],
+  //   isFeatured: false,
+  //   isNew: true,
+  //   groupId: 'bag1-22-striped-slouch', 
+  //   groupName: 'Striped Slouch Tote',
+  //   colorHex: '#3A3A3A',
+  //   colorName: 'Charcoal Stripe',
+
+  // },
 ];
 
 export const CATEGORY_CARDS: CategoryCard[] = [
